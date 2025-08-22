@@ -3,7 +3,9 @@ export default function Header() {
     <div>
       <h1>Grunt Mart</h1>
       <div>Shopy by category</div>
-      <form>Search</form>
+      <div className="search-container">
+        <input type="text" placeholder="Search..." className="search-input" />
+      </div>
       <div>shopping cart</div>
     </div>
   );
