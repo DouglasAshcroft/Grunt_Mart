@@ -19,6 +19,8 @@ CREATE TABLE "products" (
 	"price" MONEY,
 	"pic" VECTOR,
 	"quantity" INTEGER,
+	"manufacturer" TEXT,
+	"NSN" INTEGER,
 	PRIMARY KEY("id")
 );
 
