@@ -1,0 +1,15 @@
+# HOW TO USE GruntAPI:
+
+GET
+
+POST
+
+DELETE
+
+UPDATE
+
+# DATA STRUCTURE:
+
+- Items:
+
+- Roles:
