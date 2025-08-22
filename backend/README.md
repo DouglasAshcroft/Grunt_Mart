@@ -55,10 +55,13 @@ GET
 "roles/" - get a list of all roles
 "roles/:id/" - get all categories belonging to a specific roles
 POST
+"roles/new" - adds a role
 
 DELETE
+"roles/:id/delete" - removes specified role
 
 UPDATE
+"roles/:id/update" - updates specified role
 headers required.
 Body must include only the fields being updated.
 
@@ -67,13 +70,16 @@ Data Structure:
 {id, user, price, date, status, items_ordered}
 
 GET
-"user/orders/" - get a list of all orders for the specified user
-"user/orders/:id" - get information on the specific order
+"user/:userid/orders/" - get a list of all orders for the specified user
+"user/:userid/orders/:orderid/" - get information on the specific order
 POST
+"user/orders/new/" - adds an order to the database
 
 DELETE
+"user/:userid/orders/:orderid/delete/" - removes an order from the database
 
 UPDATE
+"user/:userid/orders/:orderid/update/" - updates specified order
 headers required.
 Body must include only the fields being updated.
 
@@ -83,10 +89,14 @@ Data Structure:
 
 GET
 "user/:id" - get information on a specific user
+
 POST
+"user/new/" - adds a user to the database
 
 DELETE
+"user/:id/delete/" - removes a user from the database
 
 UPDATE
+"user/:id/update/" - updates a user in the database
 headers required.
 Body must include only the fields being updated.
