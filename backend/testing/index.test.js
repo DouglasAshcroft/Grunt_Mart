@@ -25,17 +25,17 @@ request(index)
     }
   })
 
-// //Awaiting role definition
-// request(index)
-//   .get('/roles/')
-//   .expect('Content-Type', /json/)
-//   .expect(200)
-//   .end(function (err, res){
-//     if (err) {throw err}
-//     else{
-//       console.log('Got Roles')
-//     }
-//   })
+//Awaiting role definition
+request(index)
+  .get('/roles/')
+  .expect('Content-Type', /json/)
+  .expect(200)
+  .end(function (err, res) {
+    if (err) { throw err }
+    else {
+      console.log('Got Roles')
+    }
+  })
 
 
 //GET REQUESTS - BY ID

@@ -23,3 +23,42 @@ app.use(express.json());
   }
 })();
 
+//GET requests
+app.get('/items/', (req, res) => {
+  knex('products')
+    .select('*')
+    .from('products')
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
+
+app.get('/category/', (req, res) => {
+  knex('category')
+    .select('*')
+    .from('category')
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
+
+app.get('/roles/', (req, res) => {
+  knex('role')
+    .select('*')
+    .from('role')
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
+
+
+//GET BY ID
+
+
+//POST BY ID
+
+//UPDATE - BY ID
+
+//DELETE - BY ID
+
+module.exports = app;
