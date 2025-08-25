@@ -1,17 +1,23 @@
+// App.jsx
 import "./App.css";
-import Header from "./components/Header.jsx";
+import { Routes, Route, Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "./context/CartContext.js";
+import Home from "./pages/Home.jsx";
 
 function App() {
-  return (
-    <AppContext.Provider>
-      <Header />
+  const [shoppingCart, setShoppingCart] = useState([]);
 
-      <Router>
+  return (
+    <CartContext.Provider value={{ shoppingCart, setShoppingCart }}>
+      <>
         <Routes>
-          <Route path="/" />
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/view" element={<Viewbox />} /> */}
         </Routes>
-      </Router>
-    </AppContext.Provider>
+      </>
+    </CartContext.Provider>
   );
 }
+
 export default App;
