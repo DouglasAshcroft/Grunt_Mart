@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     {
       product_id: 1,
       product_name: "string",
-      category: "string of category id",
+      category_name: "integer",
       role: "string for role",
       rating: "decimal",
       description: "string",
@@ -17,7 +17,7 @@ exports.seed = async function (knex) {
       picture: "string for link",
       quantity: "integer",
       nsn: "integer",
-      mftr: "string of manufacturer name",
+      mftr: "integer",
     },
   ]);
 };
@@ -183,6 +183,22 @@ const items = [
     category_name: "accessories",
     role: "machine gunner",
     mftr: "militarykart",
+    rating: 4.6,
+    description:
+      "This heavy-duty tactical keychain features a 65cm steel wire rope and automatic retracting system that keeps your gear secure and ready at all times.",
+    price: 27.99,
+    picture:
+      " https://cdn11.bigcommerce.com/s-1sa5ed3aq7/images/stencil/1280x1280/products/3543/8848/1-4-w--side-plates-back__31219.1738065012.jpg?c=1",
+    quantity: 50,
+    nsn: "1560-00-006-1212",
+  },
+
+  {
+    product_id: 12,
+    product_name: "flathead screwdriver",
+    category_name: "accessories",
+    role: "machine gunner",
+    mftr: "techni-pro",
     rating: 4.6,
     description:
       "This heavy-duty tactical keychain features a 65cm steel wire rope and automatic retracting system that keeps your gear secure and ready at all times.",
