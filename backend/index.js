@@ -13,7 +13,12 @@ app.use(express.json());
     console.log('Setting up DB');
     await knex.migrate.latest();
 
+    console.log('Seeding Database');
+    await knex.seed.run();
+
     console.log('Database ready');
+
+
 
     app.listen(port, () => {
       console.log('Server listening on port ' + port);
@@ -97,8 +102,8 @@ app.get('/role/:id', (req, res) => {
     });
 })
 
-app.get('/user/:id/orders/', (req, res) => {
-  let userID = req.params.id;
+app.get('/user/:userid/orders/', (req, res) => {
+  let userID = req.params.userid;
   knex('orders')
     .select('*')
     .from('orders')
@@ -108,8 +113,8 @@ app.get('/user/:id/orders/', (req, res) => {
     });
 })
 
-app.get('/user/:id/orders/:orderID', (req, res) => {
-  let userID = req.params.id;
+app.get('/user/:userid/orders/:orderID', (req, res) => {
+  let userID = req.params.userid;
   let orderID = req.params.orderID
   knex('orders')
     .select('*')
@@ -120,10 +125,209 @@ app.get('/user/:id/orders/:orderID', (req, res) => {
     });
 })
 
-//POST BY ID
+//POST New entries
+app.post('/items/new/', async (req, res) => {
+  try {
+    await knex('products').insert(req.body.item);
+    res.status(200).json({ message: 'Saved product information' });
+    console.log('new product saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save product' })
+  }
+})
+
+app.post('/items/new/', async (req, res) => {
+  try {
+    await knex('products').insert(req.body.item);
+    res.status(200).json({ message: 'Saved product information' });
+    console.log('new product saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save product' })
+  }
+})
+
+app.post('/category/new/', async (req, res) => {
+  try {
+    await knex('category').insert(req.body.category);
+    res.status(200).json({ message: 'Saved category information' });
+    console.log('new category saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save category' })
+  }
+})
+
+app.post('/roles/new/', async (req, res) => {
+  try {
+    await knex('role').insert(req.body.role);
+    res.status(200).json({ message: 'Saved role information' });
+    console.log('new role saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save role' })
+  }
+})
+
+app.post('/user/:userid/orders/new/', async (req, res) => {
+  try {
+    await knex('orders').insert(req.body.order);
+    res.status(200).json({ message: 'Saved order information' });
+    console.log('new order saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save order' })
+  }
+})
+
+app.post('/user/new/', async (req, res) => {
+  try {
+    await knex('users').insert(req.body.user);
+    res.status(200).json({ message: 'Saved user information' });
+    console.log('new user saved');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to save user' })
+  }
+})
+
 
 //UPDATE - BY ID
+app.patch('/items/:itemid/update/', async (req, res) => {
+  const itemID = req.params.itemid;
+  const change = req.body.item;
+  try {
+    await knex('products').where("product_id", itemID).update(change);
+    res.status(200).json({ message: 'Saved product change' });
+    console.log('product altered');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to change product' })
+  }
+})
 
+app.patch('/category/:categoryid/update/', async (req, res) => {
+  const categoryID = req.params.categoryid;
+  const change = req.body.category;
+
+  try {
+    await knex('category').where("category_id", categoryID).update(change);
+    res.status(200).json({ message: 'Saved category change' });
+    console.log('category altered');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to change category' })
+  }
+})
+
+app.patch('/roles/:roleid/update/', async (req, res) => {
+  const roleID = req.params.roleid;
+  const change = req.body.item;
+  try {
+    await knex('role').where("role_id", roleID).update(change);
+    res.status(200).json({ message: 'Saved role change' });
+    console.log('role altered');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to change role' })
+  }
+})
+
+app.patch('/users/:userid/orders/:orderid/update/', async (req, res) => {
+  const orderID = req.params.orderid;
+  const change = req.body.item;
+
+  try {
+    await knex('orders').where("order_id", orderID).update(change);
+    res.status(200).json({ message: 'Saved order change' });
+    console.log('order altered');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to change order' })
+  }
+})
+
+app.patch('/users/:userid/update/', async (req, res) => {
+  const userID = req.params.userid;
+  const change = req.body.item;
+  try {
+    await knex('users').where("user_id", userID).update(change);
+    res.status(200).json({ message: 'Saved user change' });
+    console.log('user altered');
+  } catch (err) {
+    console.error('No bueno...', err);
+    res.status(500).json({ error: 'Failed to change user' })
+  }
+})
 //DELETE - BY ID
+app.delete('/items/delete/:itemid', async (req, res) => {
+  const itemID = req.params.itemid
+  try {
+    await knex('products').where('product_id', itemID).del();
+    console.log('Deleted product');
+    res.status(200).json({ message: "Product Deleted" })
+
+  } catch (err) {
+    console.error("Delete fail:", err);
+    res.status(500).json({ error: "Failed to delete." });
+  }
+})
+
+app.delete('/category/delete/:categoryid', async (req, res) => {
+  const categoryID = req.params.categoryid
+  try {
+    await knex('category').where('category_id', categoryID).del();
+    console.log('Deleted category');
+    res.status(200).json({ message: "Category Deleted" })
+
+  } catch (err) {
+    console.error("Delete fail:", err);
+    res.status(500).json({ error: "Failed to delete." });
+  }
+})
+
+app.delete('/role/delete/:roleid', async (req, res) => {
+  const roleID = req.params.roleid;
+  try {
+    await knex('role').where('role_id', roleID).del();
+    console.log('Deleted role');
+    res.status(200).json({ message: "Role Deleted" })
+
+  } catch (err) {
+    console.error("Delete fail:", err);
+    res.status(500).json({ error: "Failed to delete." });
+  }
+})
+
+app.delete('/users/:userid/orders/:orderid/delete/', async (req, res) => {
+  const userID = req.params.userid;
+  const orderID = req.params.orderid;
+
+  try {
+    await knex('orders').where('order_id', orderID).del();
+    console.log('Deleted order');
+    res.status(200).json({ message: "Order Deleted" })
+
+  } catch (err) {
+    console.error("Delete fail:", err);
+    res.status(500).json({ error: "Failed to delete." });
+  }
+})
+
+app.delete('/users/:userid/delete/', async (req, res) => {
+  const userID = req.params.userid;
+
+
+  try {
+    await knex('users').where('user_id', userID).del();
+    console.log('Deleted user');
+    res.status(200).json({ message: "User Deleted" })
+
+  } catch (err) {
+    console.error("Delete fail:", err);
+    res.status(500).json({ error: "Failed to delete." });
+  }
+})
 
 module.exports = app;
