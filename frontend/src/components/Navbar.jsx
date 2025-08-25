@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import ThemeToggle from "./utils/ThemeToggle";
 import "../styles/Navbar.css";
 
 export default function Navbar() {
@@ -36,6 +37,7 @@ export default function Navbar() {
           placeholder="Search gear..."
           className="search-input"
         />
+        <ThemeToggle />
       </div>
     </nav>
   );
