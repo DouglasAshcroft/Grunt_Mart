@@ -129,7 +129,7 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 10,
+      product_id: 9,
       product_name: "low profile plate carrier",
       category_name: 2,
       role: "protective security detail (psd)",
@@ -145,7 +145,7 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 11,
+      product_id: 10,
       product_name: "retractable keychain leash",
       category_name: 8,
       role: "machine gunner",
