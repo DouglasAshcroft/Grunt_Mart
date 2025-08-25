@@ -5,5 +5,5 @@
 exports.seed = async function (knex) {
   // Deletes ALL existing entries
   await knex("manufacturer").del();
-  await knex("manufacturer").insert([{ mftr_id: 1, mftr_name: "rowValue1" }]);
+  await knex("manufacturer").insert([{ mftr_id: 1, mftr_name: "safariland" }]);
 };
