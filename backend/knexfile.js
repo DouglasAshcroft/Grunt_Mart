@@ -8,9 +8,9 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: 'database',
+      host: 'localhost',
       user: 'postgres',
-      password: 'postgres',
+      password: 'docker',
       database: 'gruntmart',
     },
     migrations: {
