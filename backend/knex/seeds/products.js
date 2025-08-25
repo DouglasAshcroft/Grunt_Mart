@@ -7,7 +7,7 @@ exports.seed = async function (knex) {
   await knex("products").del();
   await knex("products").insert([
     {
-      product_id: 1,
+
       product_name: "safariland glock holster",
       category: 1,
       role: "infantry",
@@ -19,6 +19,7 @@ exports.seed = async function (knex) {
         "https://safariland.com/products/6354rdso-als-holster-w-qls19-fork?part-number=6354RD[…]paignid=18076866959&gbraid=0AAAAAD2lf3yiOLRUZvZSJk25r35GgIVYp",
       quantity: 7,
       nsn: 1560000068043,
+
     },
 
     {
@@ -174,7 +175,37 @@ exports.seed = async function (knex) {
         " https://cdn11.bigcommerce.com/s-1sa5ed3aq7/images/stencil/1280x1280/products/3543/8848/1-4-w--side-plates-back__31219.1738065012.jpg?c=1",
       quantity: 50,
       nsn: 1560000061212,
-    },
+    },{
+    product_id: 11,
+    product_name: "retractable keychain leash",
+    category_name: "accessories",
+    role: "machine gunner",
+    mftr: "militarykart",
+    rating: 4.6,
+    description:
+      "This heavy-duty tactical keychain features a 65cm steel wire rope and automatic retracting system that keeps your gear secure and ready at all times.",
+    price: 27.99,
+    picture:
+      " https://cdn11.bigcommerce.com/s-1sa5ed3aq7/images/stencil/1280x1280/products/3543/8848/1-4-w--side-plates-back__31219.1738065012.jpg?c=1",
+    quantity: 50,
+    nsn: "1560-00-006-1212",
+  },
+
+  {
+    product_id: 12,
+    product_name: "flathead screwdriver",
+    category_name: "accessories",
+    role: "machine gunner",
+    mftr: "techni-pro",
+    rating: 4.6,
+    description:
+      "This heavy-duty tactical keychain features a 65cm steel wire rope and automatic retracting system that keeps your gear secure and ready at all times.",
+    price: 27.99,
+    picture:
+      " https://cdn11.bigcommerce.com/s-1sa5ed3aq7/images/stencil/1280x1280/products/3543/8848/1-4-w--side-plates-back__31219.1738065012.jpg?c=1",
+    quantity: 50,
+    nsn: "1560-00-006-1212",
+  },
   ]);
 };
 
