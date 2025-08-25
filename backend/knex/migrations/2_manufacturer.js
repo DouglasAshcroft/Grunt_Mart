@@ -5,7 +5,7 @@
 exports.up = function (knex) {
   return knex.schema.createTable('manufacturer', table => {
     table.increments('mftr_id');
-    table.string('mnfr_name');
+    table.string('mftr_name');
   })
 };
 
