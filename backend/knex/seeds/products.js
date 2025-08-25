@@ -9,7 +9,7 @@ exports.seed = async function (knex) {
     {
       product_id: 1,
       product_name: "safariland glock holster",
-      category_name: 1,
+      category: 1,
       role: "infantry",
       mftr: 1,
       rating: 4.7,
