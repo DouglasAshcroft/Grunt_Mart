@@ -116,7 +116,11 @@ app.get('/role/:id', (req, res) => {
     .where({ role_id: roleID, })
     .then(data => {
       category = getRoleFiles(roleID);
-      res.status(200).json(data, category)
+      let temp = data[0];
+      let convert = { temp, category };
+      let results = createRoleResults(convert);
+      //console.log(results);
+      res.status(200).json(results)
     });
   //check for
 
@@ -364,6 +368,7 @@ app.delete('/users/:userid/delete/', async (req, res) => {
 })
 
 function getRoleFiles(id) {
+  console.log("getRoleFiles called")
   const roleFile = fs.readFileSync(`./Roles/role${id}.csv`, 'utf8', (err, data) => {
     if (err) {
       console.error("Error reading file: ", err);
@@ -376,6 +381,7 @@ function getRoleFiles(id) {
     skip_empty_lines: true,
   })
 
+  console.log(records);
   return records;
 
 }
@@ -398,4 +404,14 @@ function deleteRoleFiles(id) {
   })
 }
 
+function createRoleResults(obj) {
+  let results = {
+    role_id: obj.temp.role_id,
+    role_name: obj.temp.role_name,
+    role_description: obj.temp.role_description,
+    category: obj.category
+  }
+
+  return results;
+}
 module.exports = app;
