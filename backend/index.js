@@ -18,11 +18,18 @@ app.use(express.json());
 
 (async () => {
   try {
-    console.log('Setting up DB');
-    await knex.migrate.latest();
+    const table = await knex.schema.hasTable('products');
 
-    console.log('Seeding Database');
-    await knex.seed.run();
+    if (!table) {
+      console.log('Setting up DB');
+      await knex.migrate.latest();
+
+      console.log('Seeding Database');
+      await knex.seed.run();
+    } else {
+      console.log('Migration already performed')
+    }
+
 
     console.log('Database ready');
 
