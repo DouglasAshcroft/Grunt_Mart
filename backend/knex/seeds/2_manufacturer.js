@@ -15,7 +15,17 @@ exports.seed = async function (knex) {
     { mftr_id: 7, mftr_name: "tactical tailor" },
     { mftr_id: 8, mftr_name: "esstac" },
     { mftr_id: 9, mftr_name: "firstspear" },
-    { mftr_id: 10, mftr_name: "militarykart" }
+    { mftr_id: 10, mftr_name: "militarykart" },
+    { mftr_id: 11, mftr_name: "petzl" },
+    { mftr_id: 12, mftr_name: "militarykart" },
+    { mftr_id: 13, mftr_name: "catoma" },
+    { mftr_id: 14, mftr_name: "techni-pro" },
+    { mftr_id: 15, mftr_name: "vans" },
+    { mftr_id: 16, mftr_name: "salomon" },
+    { mftr_id: 17, mftr_name: "altra" },
+    { mftr_id: 18, mftr_name: "gunfightershootingsolutions" },
+    { mftr_id: 19, mftr_name: "ferro concepts" },
+    { mftr_id: 20, mftr_name: "shaw concepts" }
 
   ]);
 };

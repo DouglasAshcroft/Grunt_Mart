@@ -9,11 +9,11 @@ exports.up = function (knex) {
     table.integer('category');
     table.foreign('category').references('category.category_id');
     table.decimal('rating');
-    table.string('description');
+    table.text('description');
     table.decimal('price', { precision: 2 });
-    table.string('picture');
+    table.text('picture');
     table.integer('quantity');
-    table.integer('nsn');
+    table.string('nsn');
     table.integer('mftr');
     table.foreign('mftr').references('manufacturer.mftr_id');
   });
