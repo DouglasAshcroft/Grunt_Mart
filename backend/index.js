@@ -1,6 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const utils = require('./utils.js')
+//NOTE: While using CommonJS instead of Type:module, you must invoke utils functions as (utils.NAMEHERE, e.g. utils.createOrder)
+//This can be refactored later. See below for an example.
+utils.sqlDebugTest('test string')
 
 const port = 3000;
 const knex = require('knex')(require('./knexfile.js')['development']);
