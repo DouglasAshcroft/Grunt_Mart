@@ -1,0 +1,10 @@
+.picture-resize {
+  height: 250px;
+  width: 150px;
+}
+
+.itemcard-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem; /* space between cards */
+}
