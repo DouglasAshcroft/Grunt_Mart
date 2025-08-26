@@ -13,10 +13,25 @@ function sqlDebugTest(inString){
      * and if the supplied hash matches existing hashed password. Params not implemented, returns true.
      * @param {string} userName - A string of the user's name
      * @param {string} passHash - A hashed password
-     * @returns {boolean} The same string passed in
+     * @returns {boolean} Boolean that returns true if authenticated, false if not authenticated, and errors null NOTE: Is this needed?
      */
 function authenticateUser(){
     return true //PLACEHOLDER
+}
+
+/**
+     * PLACEHOLDER Function that will create a user with a given email, username, and password.
+     * 
+     * Ideal implementation will have checks for existing userName/email.
+     * Stretch goals for scanning for invalid characters and password requirements.
+     * ***Placeholder returns userId 999 for testing purposes
+     * @param {string} email - A valid email address
+     * @param {string} userName - A string of the user's desired name
+     * @param {string} passHash - A hashed password
+     * @returns {number} The created user's userId. Returns -1 if an error occurs. ***Placeholder always returns 999
+     */
+function createUser(){
+    return 999 //PLACEHOLDER
 }
 
     /**
@@ -34,5 +49,6 @@ function createOrder(){
 module.exports = {
     sqlDebugTest:sqlDebugTest,
     authenticateUser:authenticateUser,
+    createUser:createUser,
     createOrder:createOrder
 };
