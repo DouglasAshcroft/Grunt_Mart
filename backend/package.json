@@ -12,7 +12,10 @@
   "description": "",
   "dependencies": {
     "cors": "^2.8.5",
+    "csv-parse": "^6.1.0",
+    "csv-stringify": "^6.6.0",
     "express": "^5.1.0",
+    "file-system": "^2.2.2",
     "knex": "^3.1.0",
     "pg": "^8.16.3"
   },

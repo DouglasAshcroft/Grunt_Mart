@@ -6,6 +6,10 @@ const utils = require('./utils.js')
 //This can be refactored later. See below for an example.
 utils.sqlDebugTest('test string')
 
+const { parse } = require('csv-parse/sync');
+const { stringify } = require('csv-stringify/sync');
+const fs = require('fs');
+
 const port = 3000;
 const knex = require('knex')(require('./knexfile.js')['development']);
 
@@ -94,16 +98,21 @@ app.get('/category/:id', (req, res) => {
       res.status(200).json(data)
     });
 })
-
+//////////////////////NEED TESTING///////////////////////
 app.get('/role/:id', (req, res) => {
   let roleID = req.params.id;
+  let category;
+
   knex('role')
     .select('*')
-    .from('users')
+    .from('role')
     .where({ role_id: roleID, })
     .then(data => {
-      res.status(200).json(data)
+      category = getRoleFiles(roleID);
+      res.status(200).json(data, category)
     });
+  //check for
+
 })
 
 app.get('/user/:userid/orders/', (req, res) => {
@@ -164,6 +173,7 @@ app.post('/category/new/', async (req, res) => {
 })
 
 app.post('/roles/new/', async (req, res) => {
+  let roleID
   try {
     await knex('role').insert(req.body.role);
     res.status(200).json({ message: 'Saved role information' });
@@ -172,6 +182,14 @@ app.post('/roles/new/', async (req, res) => {
     console.error('No bueno...', err);
     res.status(500).json({ error: 'Failed to save role' })
   }
+
+  await knex('role').select('role_id').from('role').where({ role_name: req.body.role.name })
+    .then(date => {
+      roleID = json(data);
+      editRoleFiles(roleID, req.body.role.category);
+    });
+
+
 })
 
 app.post('/user/:userid/orders/new/', async (req, res) => {
@@ -227,9 +245,11 @@ app.patch('/category/:categoryid/update/', async (req, res) => {
 
 app.patch('/roles/:roleid/update/', async (req, res) => {
   const roleID = req.params.roleid;
-  const change = req.body.item;
+  const change = req.body.role;
+  const category = req.body.role.category;
   try {
     await knex('role').where("role_id", roleID).update(change);
+    editRoleFiles(roleID, category);
     res.status(200).json({ message: 'Saved role change' });
     console.log('role altered');
   } catch (err) {
@@ -240,7 +260,7 @@ app.patch('/roles/:roleid/update/', async (req, res) => {
 
 app.patch('/users/:userid/orders/:orderid/update/', async (req, res) => {
   const orderID = req.params.orderid;
-  const change = req.body.item;
+  const change = req.body.order;
 
   try {
     await knex('orders').where("order_id", orderID).update(change);
@@ -254,7 +274,7 @@ app.patch('/users/:userid/orders/:orderid/update/', async (req, res) => {
 
 app.patch('/users/:userid/update/', async (req, res) => {
   const userID = req.params.userid;
-  const change = req.body.item;
+  const change = req.body.user;
   try {
     await knex('users').where("user_id", userID).update(change);
     res.status(200).json({ message: 'Saved user change' });
@@ -264,6 +284,7 @@ app.patch('/users/:userid/update/', async (req, res) => {
     res.status(500).json({ error: 'Failed to change user' })
   }
 })
+
 //DELETE - BY ID
 app.delete('/items/delete/:itemid', async (req, res) => {
   const itemID = req.params.itemid
@@ -295,6 +316,7 @@ app.delete('/role/delete/:roleid', async (req, res) => {
   const roleID = req.params.roleid;
   try {
     await knex('role').where('role_id', roleID).del();
+    deleteRoleFiles(roleID);
     console.log('Deleted role');
     res.status(200).json({ message: "Role Deleted" })
 
@@ -333,5 +355,40 @@ app.delete('/users/:userid/delete/', async (req, res) => {
     res.status(500).json({ error: "Failed to delete." });
   }
 })
+
+function getRoleFiles(id) {
+  const roleFile = fs.readFileSync(`./Roles/role${id}.csv`, 'utf8', (err, data) => {
+    if (err) {
+      console.error("Error reading file: ", err);
+      return;
+    }
+  });
+
+  let records = parse(roleFile, {
+    columns: true,
+    skip_empty_lines: true,
+  })
+
+  return records;
+
+}
+
+function editRoleFiles(id, data) {
+  const csvData = stringify(data, { header: true, columns: ['category'] });
+  try {
+    fs.writeFileSync(`./Roles/role${id}.csv`, csvData);
+    return true;
+  } catch (err) {
+    console.error(err);
+    return false;
+  }
+}
+
+function deleteRoleFiles(id) {
+  fs.unlink(`./Roles/role${id}.csv`, function (err) {
+    if (err) throw err;
+    console.log('Role Deleted');
+  })
+}
 
 module.exports = app;
