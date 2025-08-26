@@ -12,7 +12,7 @@ import { useEffect } from "react";
  * @example //Logs "userName has changed, new value is bob"
  * const [userName,setUserName] = useState('');
  * stateMonitor(userName,'userName')
- * //Some event occurs to change the userName, and the stateMonitor fires
+ * //Some event occurs to change the userName to 'bob', and the stateMonitor fires
  */
 export function stateMonitor(stateValue, stateName = "Unnamed State") {
   return useEffect(() => {
