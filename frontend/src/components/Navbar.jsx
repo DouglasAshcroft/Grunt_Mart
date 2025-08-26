@@ -1,6 +1,12 @@
+
 import React, { useState } from "react";
 import ThemeToggle from "./utils/ThemeToggle";
 import "../styles/Navbar.css";
+
+/**
+ * Navbar component with a dropdown list of navigation destinations
+ * @returns (HTML) A nav element with multiple options
+ */
 
 export default function Navbar() {
   const [dropdownOpen, setDropdownOpen] = useState(false);

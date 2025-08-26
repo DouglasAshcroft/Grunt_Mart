@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
+const sqlDebugTest = require('./utils.js')
 
 const port = 3000;
 const knex = require('knex')(require('./knexfile.js')['development']);
 
 app.use(cors());
 app.use(express.json());
+
+
 
 (async () => {
   try {

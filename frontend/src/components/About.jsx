@@ -1,3 +1,8 @@
+/**
+ * A simple about component with no input props
+ * @returns (HTML) A Single HTML DIV that contains the about info.
+ */
+
 export default function About() {
   return (
     <div>
