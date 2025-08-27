@@ -1,9 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import { CartContext } from "../context/CartContext.js";
+import { getCategoryById, getMftrById } from "../utils/utils.js"
 
 export default function ItemView({ item }) {
   const { shoppingCart, setShoppingCart } = useContext(CartContext);
   // const [item, setItem] = useState(item)
+  const mftr = getMftrById(item.mftr);
+  const category = getCategoryById(item.category);
+
   return (
     <>
       <h2>{item.product_name}</h2>
@@ -17,12 +21,13 @@ export default function ItemView({ item }) {
       </div>
       <div>
         <ul>
-          <li>Manufacturer: {item.mftr}</li>
-          <li>Category: {item.category}</li>
+          <li>Manufacturer: {mftr}</li>
+          <li>Category: {category}</li>
           <li>NSN: {item.nsn}</li>
         </ul>
       </div>
 
+      <button onClick={() => (setShoppingCart({ item }))}>Add to Cart</button>
     </>
   )
 }
