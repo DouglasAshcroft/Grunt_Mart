@@ -1,33 +1,41 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useParams } from "react";
 import { CartContext } from "../context/CartContext.js";
-import { getCategoryById, getMftrById } from "../utils/utils.js"
+import { getItemById, getCategoryById, getMftrById } from "../utils/utils.js"
 
-export default function ItemView({ item }) {
+export default function ItemView() {
+  const itemId = useParams()
+  const [product, setProduct] = useState();
   const { shoppingCart, setShoppingCart } = useContext(CartContext);
+
+  useEffect(() => {
+    const item = getItemById(itemId);
+    setProduct(item);
+  }, [])
+
   // const [item, setItem] = useState(item)
-  const mftr = getMftrById(item.mftr);
-  const category = getCategoryById(item.category);
+  const mftr = getMftrById(product.mftr);
+  const category = getCategoryById(product.category);
 
   return (
     <>
-      <h2>{item.product_name}</h2>
+      <h2>{product.product_name}</h2>
       <div className="item_image">
-        {item.picture}
+        {product.picture}
       </div>
 
       <div>
-        <span>{item.description}</span>
-        <span>{item.price}</span>
+        <span>{product.description}</span>
+        <span>{product.price}</span>
       </div>
       <div>
         <ul>
           <li>Manufacturer: {mftr}</li>
           <li>Category: {category}</li>
-          <li>NSN: {item.nsn}</li>
+          <li>NSN: {product.nsn}</li>
         </ul>
       </div>
 
-      <button onClick={() => (setShoppingCart({ item }))}>Add to Cart</button>
+      <button onClick={() => (setShoppingCart({ product }))}>Add to Cart</button>
     </>
   )
 }
