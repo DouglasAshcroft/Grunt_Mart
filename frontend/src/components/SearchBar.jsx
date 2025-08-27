@@ -5,6 +5,7 @@ import { SearchContext } from "../context/SearchContext";
 function SearchBar() {
   const { results, search } = useContext(SearchContext);
   const [query, setQuery] = useState("");
+  const [isFocused, setIsFocused] = useState(false);
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
 
@@ -12,19 +13,25 @@ function SearchBar() {
   useEffect(() => {
     const t = setTimeout(() => {
       search(query);
-      setOpen(Boolean(query.trim()));
-    }, 250);
+      const shouldOpen =
+        isFocused && query.trim().length > 0 && results.length > 0;
+      setOpen(shouldOpen);
+    }, 300);
     return () => clearTimeout(t);
-  }, [query, search]);
+  }, [query, isFocused, results.length, search]);
 
   // close search bar when user clicks outside
   useEffect(() => {
     function onDoc(e) {
-      if (!wrapRef.current?.contains(e.target)) setOpen(false);
+      if (!wrapRef.current?.contains(e.target)) setIsFocused(false);
+      setOpen(false);
     }
-    document.addEventListener("mousedown", onDoc);
-    return () => document.removeEventListener("mousedown", onDoc);
+    document.addEventListener("pointerdown", onDoc);
+    return () => document.removeEventListener("pointerdown", onDoc);
   }, []);
+
+  // Allow clicks inside popup for navigation to product details
+  const stopOutsideClose = (e) => e.preventDefault();
 
   return (
     <div className="search-wrap" ref={wrapRef}>
@@ -34,11 +41,15 @@ function SearchBar() {
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by product or NSN"
-        onFocus={() => results.length && setOpen(true)}
+        onFocus={() => setIsFocused(true)}
       />
 
-      {open && results.length > 0 && (
-        <div className="search-popover">
+      {open && (
+        <div
+          className="search-popover"
+          role="listbox"
+          onMouseDown={stopOutsideClose}
+        >
           {results.slice(0, 10).map((item) => (
             <button key={item.id} className="search-row" type="button">
               <div className="search-row-title">{item.name}</div>
