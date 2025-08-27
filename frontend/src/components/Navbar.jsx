@@ -3,6 +3,7 @@ import SearchBar from "./SearchBar";
 import ThemeToggle from "./utils/ThemeToggle";
 import CategoryDropdown from "./CategoryDropdown";
 import "../styles/Navbar.css";
+import { Link } from "react-router-dom";
 
 /**
  * Navbar component with a dropdown list of navigation destinations
@@ -24,6 +25,9 @@ export default function Navbar() {
       <div className="navbar-right">
         <SearchBar />
         <ThemeToggle />
+        <Link to="/cart" className="shopping-cart-btn">
+          Shopping Cart
+        </Link>
       </div>
     </nav>
   );

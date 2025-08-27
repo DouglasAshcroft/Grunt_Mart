@@ -10,27 +10,27 @@ import Navbar from "./components/Navbar";
 import About from "./components/About";
 import ShoppingCart from "./components/ShoppingCart.jsx";
 import { stateMonitor } from "./components/utils/reactUtils.js";
-import { saveObjToStorage, loadObjFromStorage } from "./components/utils/utils.js";
+import {
+  saveObjToStorage,
+  loadObjFromStorage,
+} from "./components/utils/utils.js";
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);
 
-  stateMonitor(shoppingCart, 'App Shopping Cart')
-  
+  stateMonitor(shoppingCart, "App Shopping Cart");
+
   useEffect(() => {
-    if (loadObjFromStorage('browserShoppingCart')) {
-        setShoppingCart((loadObjFromStorage('browserShoppingCart')))
+    if (loadObjFromStorage("browserShoppingCart")) {
+      setShoppingCart(loadObjFromStorage("browserShoppingCart"));
     }
   }, []);
 
   useEffect(() => {
-    if(shoppingCart.length>0){
-    saveObjToStorage('browserShoppingCart', shoppingCart)
+    if (shoppingCart.length > 0) {
+      saveObjToStorage("browserShoppingCart", shoppingCart);
     }
-
   }, [shoppingCart]);
-
-
 
   return (
     <CartContext.Provider value={{ shoppingCart, setShoppingCart }}>
