@@ -5,6 +5,19 @@ const backendDestination = `http://localhost:3000`
 //Ensure that these addresses and port are correctly set if something fails
 //console.log(backendDestination) //***Uncomment this line to debug endpoint issues
 
+
+
+export function saveObjToStorage(key,savedObj) {
+    localStorage.setItem(key, JSON.stringify(savedObj))
+}
+
+export function loadObjFromStorage(key) {
+    if (localStorage.getItem(key) == null) {
+        return false
+    } else
+        return JSON.parse(localStorage.getItem(key))
+}
+
 /**
  * UNTESTED Function that will fetch from the /items/ endpoint and get all products
  * @returns {Promise<Array>} Promise that resolves into an array of products
@@ -127,15 +140,15 @@ export async function getUserOrdersById(userId, orderId) {
 export function addItemToCart(addedItem, [cartState = [], setCartState], quantity = 1) {
     /** @type {array}*/
     let updatedCart = cartState.slice()
-    if (updatedCart.length() > 0) {
+    if (updatedCart.length > 0) {
         let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
         if (indexCheck > -1) {
             updatedCart[indexCheck].qty += 1
         } else {
-            updatedCart.push({ 'item': item, 'qty': quantity })
+            updatedCart.push({ 'item': addedItem, 'qty': quantity })
         }
     } else {
-        updatedCart.push({ 'item': item, 'qty': quantity })
+        updatedCart.push({ 'item': addedItem, 'qty': quantity })
     }
 
 
