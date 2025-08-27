@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { SearchProvider } from "./context/SearchContext";
 import { CartContext } from "./context/CartContext.js";
 import Home from "./pages/Home.jsx";
+import Navbar from "../components/Navbar";
 import ShoppingCart from "./components/ShoppingCart.jsx";
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
     <CartContext.Provider value={{ shoppingCart, setShoppingCart }}>
       <>
         <SearchProvider>
+          <Navbar />
           <Routes>
             <Route path="/" element={<Home />} />
             {/* <Route path="/view" element={<Viewbox />} /> */}
