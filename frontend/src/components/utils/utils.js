@@ -164,6 +164,48 @@ export function addItemToCart(addedItem, [cartState = [], setCartState], quantit
 }
 
 
+//Shopping Cart Functions
+
+/**
+ * @typedef rfiProduct
+ * @type {object}
+ * @property {number} product_id - Uniqued number ID of the product
+ * @property {string} product_name - string name of product
+ * @property {number} category - category id
+ * @property {number} mftr - manufacturer id
+ * @property {number} rating - current rating of product (#.#)
+ * @property {string} description - string description
+ * @property {number} price - price in USD
+ * @property {string} picture - string url to picture reference
+ * @property {number} quantity - current in stock quanitity
+ * @property {string} nsn - National Stock Number in String format
+ * 
+ */
+
+/**
+ * UNTESTED Function that will add an Item to the cart
+ * @param {rfiProduct} addedItem Item object to be purchased
+ * @param {Array.rfiProduct} cartState Supplied cart via context, defaults to empty
+ * @param {function} setCartState Function to fire to change cartState
+ * @param {number} quantity Quanitity to add to cart, defaults to one
+ * @returns {boolean} True if cart was updated successfully, ALWAYS TRUE ATT
+ */
+
+export function addItemToCart(addedItem, [cartState=[],setCartState],quantity=1){
+    let updatedCart = cartState.slice()
+    let indexCheck = updatedCart.findIndex(element=>element.item.product_id==addedItem.product_id)
+    if(indexCheck>-1){
+        updatedCart[indexCheck].qty+=1
+    } else {
+updatedCart.push({'item':item,'qty':quantity})
+    }
+    
+    setCartState(updatedCart)
+    console.log(cartState)
+    return true
+}
+
+
 // // utils.js
 
 // // ✅ Central base URL (use VITE_API_URL if set, fallback to localhost:3000)
