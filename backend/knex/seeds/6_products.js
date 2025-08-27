@@ -7,7 +7,6 @@ exports.seed = async function (knex) {
   await knex("products").del();
   await knex("products").insert([
     {
-      product_id: 1,
       product_name: "safariland glock holster",
       category: 1,
       mftr: 1,
@@ -22,7 +21,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 2,
       product_name: "crye plate carrier",
       category: 2,
       mftr: 2,
@@ -36,7 +34,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 3,
       product_name: "ronin belt",
       category: 3,
       mftr: 3,
@@ -50,7 +47,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 4,
       product_name: "blue force belt",
       category: 3,
       mftr: 4,
@@ -64,7 +60,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 5,
       product_name: "smith eye pro",
       category: 4,
       mftr: 5,
@@ -79,7 +74,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 6,
       product_name: "range cap",
       category: 5,
       mftr: 6,
@@ -93,7 +87,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 7,
       product_name: "rhodesian",
       category: 2,
       mftr: 7,
@@ -108,7 +101,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 8,
       product_name: "glock mga pouch",
       category: 6,
       mftr: 8,
@@ -123,7 +115,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 9,
       product_name: "low profile plate carrier",
       category: 2,
       mftr: 9,
@@ -138,7 +129,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 10,
       product_name: "petzl fast rope gloves",
       category: 8,
       mftr: 11,
@@ -153,7 +143,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 11,
       product_name: "retractable keychain leash",
       category: 8,
       mftr: 12,
@@ -167,7 +156,6 @@ exports.seed = async function (knex) {
       nsn: "1560000061212",
     },
     {
-      product_id: 12,
       product_name: "assistant gunner pack kit",
       category: 9,
       mftr: 13,
@@ -181,7 +169,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 13,
       product_name: "flathead screwdriver",
       category: 8,
       mftr: 14,
@@ -196,7 +183,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 14,
       product_name: "vans hi top sneakers",
       category: 7,
       mftr: 15,
@@ -210,7 +196,6 @@ exports.seed = async function (knex) {
       nsn: "1560003461892",
     },
     {
-      product_id: 15,
       product_name: "speed assault 2 gore-tex",
       category: 7,
       mftr: 16,
@@ -225,7 +210,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 16,
       product_name: "Altra Trail Running Hi-Tops",
       category: 7,
       mftr: 17,
@@ -240,7 +224,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 17,
       product_name: "magnetic weapon retention system",
       category: 6,
       mftr: 18,
@@ -255,7 +238,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 18,
       product_name: "ferro concepts back panel banger",
       category: 6,
       mftr: 19,
@@ -270,7 +252,6 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_id: 19,
       product_name: "dangler - raid pouch v3",
       category: 6,
       mftr: 20,

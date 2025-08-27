@@ -152,18 +152,7 @@ app.get('/user/:userid/orders/:orderID', (req, res) => {
 //POST New entries
 app.post('/items/new/', async (req, res) => {
   try {
-    await knex('products').insert(req.body.item);
-    res.status(200).json({ message: 'Saved product information' });
-    console.log('new product saved');
-  } catch (err) {
-    console.error('No bueno...', err);
-    res.status(500).json({ error: 'Failed to save product' })
-  }
-})
-
-app.post('/items/new/', async (req, res) => {
-  try {
-    await knex('products').insert(req.body.item);
+    await knex('products').insert(req.body);
     res.status(200).json({ message: 'Saved product information' });
     console.log('new product saved');
   } catch (err) {
@@ -174,7 +163,7 @@ app.post('/items/new/', async (req, res) => {
 
 app.post('/category/new/', async (req, res) => {
   try {
-    await knex('category').insert(req.body.category);
+    await knex('category').insert(req.body);
     res.status(200).json({ message: 'Saved category information' });
     console.log('new category saved');
   } catch (err) {
@@ -186,7 +175,7 @@ app.post('/category/new/', async (req, res) => {
 app.post('/roles/new/', async (req, res) => {
   let roleID
   try {
-    await knex('role').insert(req.body.role);
+    await knex('role').insert(req.body);
     res.status(200).json({ message: 'Saved role information' });
     console.log('new role saved');
   } catch (err) {
@@ -194,10 +183,10 @@ app.post('/roles/new/', async (req, res) => {
     res.status(500).json({ error: 'Failed to save role' })
   }
 
-  await knex('role').select('role_id').from('role').where({ role_name: req.body.role.name })
+  await knex('role').select('role_id').from('role').where({ role_name: req.body.name })
     .then(date => {
       roleID = json(data);
-      editRoleFiles(roleID, req.body.role.category);
+      editRoleFiles(roleID, req.body.category);
     });
 
 
@@ -205,7 +194,7 @@ app.post('/roles/new/', async (req, res) => {
 
 app.post('/user/:userid/orders/new/', async (req, res) => {
   try {
-    await knex('orders').insert(req.body.order);
+    await knex('orders').insert(req.body);
     res.status(200).json({ message: 'Saved order information' });
     console.log('new order saved');
   } catch (err) {
@@ -216,7 +205,7 @@ app.post('/user/:userid/orders/new/', async (req, res) => {
 
 app.post('/user/new/', async (req, res) => {
   try {
-    await knex('users').insert(req.body.user);
+    await knex('users').insert(req.body);
     res.status(200).json({ message: 'Saved user information' });
     console.log('new user saved');
   } catch (err) {
@@ -229,7 +218,7 @@ app.post('/user/new/', async (req, res) => {
 //UPDATE - BY ID
 app.patch('/items/:itemid/update/', async (req, res) => {
   const itemID = req.params.itemid;
-  const change = req.body.item;
+  const change = req.body;
   try {
     await knex('products').where("product_id", itemID).update(change);
     res.status(200).json({ message: 'Saved product change' });
@@ -242,7 +231,7 @@ app.patch('/items/:itemid/update/', async (req, res) => {
 
 app.patch('/category/:categoryid/update/', async (req, res) => {
   const categoryID = req.params.categoryid;
-  const change = req.body.category;
+  const change = req.body;
 
   try {
     await knex('category').where("category_id", categoryID).update(change);
@@ -256,8 +245,8 @@ app.patch('/category/:categoryid/update/', async (req, res) => {
 
 app.patch('/roles/:roleid/update/', async (req, res) => {
   const roleID = req.params.roleid;
-  const change = req.body.role;
-  const category = req.body.role.category;
+  const change = req.body;
+  const category = req.body.category;
   try {
     await knex('role').where("role_id", roleID).update(change);
     editRoleFiles(roleID, category);
@@ -271,7 +260,7 @@ app.patch('/roles/:roleid/update/', async (req, res) => {
 
 app.patch('/users/:userid/orders/:orderid/update/', async (req, res) => {
   const orderID = req.params.orderid;
-  const change = req.body.order;
+  const change = req.body;
 
   try {
     await knex('orders').where("order_id", orderID).update(change);
@@ -285,7 +274,7 @@ app.patch('/users/:userid/orders/:orderid/update/', async (req, res) => {
 
 app.patch('/users/:userid/update/', async (req, res) => {
   const userID = req.params.userid;
-  const change = req.body.user;
+  const change = req.body;
   try {
     await knex('users').where("user_id", userID).update(change);
     res.status(200).json({ message: 'Saved user change' });

@@ -1,11 +1,14 @@
 // src/context/SearchContext.jsx
+
 import { createContext, useState, useMemo, useEffect } from "react";
 import Fuse from "fuse.js";
 import { getAllItems } from "../components/utils/utils";
 
+
 export const SearchContext = createContext();
 
 export function SearchProvider({ children }) {
+
   const [products, setProducts] = useState([]);
   const [results, setResults] = useState([]);
 
