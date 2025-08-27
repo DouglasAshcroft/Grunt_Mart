@@ -9,6 +9,7 @@ import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
 import ShoppingCart from "./components/ShoppingCart.jsx";
+import Viewbox from "./components/Viewbox.jsx";
 import { stateMonitor } from "./components/utils/reactUtils.js";
 import {
   saveObjToStorage,
@@ -28,6 +29,7 @@ function App() {
 
   useEffect(() => {
     if (shoppingCart.length > 0) {
+
       saveObjToStorage("browserShoppingCart", shoppingCart);
     }
   }, [shoppingCart]);
@@ -41,6 +43,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/details/:productId" element={<ItemView />} />
+            <Route path="/view" element={<Viewbox />} />
             {/* <Route path="/view" element={<Viewbox />} /> */}
           </Routes>
           <About />

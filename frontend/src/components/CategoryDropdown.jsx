@@ -1,20 +1,29 @@
 // src/components/CategoryDropdown.jsx
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getItemsByCategory } from "./utils/utils.js"
 
-export default function CategoryDropdown({
-  label = "Shop by Category",
-  items = [
-    { label: "Clothing", href: "/category/clothing" },
-    { label: "Gear", href: "/category/gear" },
-    { label: "Accessories", href: "/category/accessories" },
-    { label: "Clearance", href: "/category/clearance" },
-  ],
-  onSelect, // optional: (item) => void
-  align = "left", // "left" | "right"
-}) {
+export default function CategoryDropdown(
+  {
+    label = "Shop by Category",
+    items = [
+      { label: "Holsters", id: 1 },
+      { label: "Plate Carriers", id: 2 },
+      { label: "Belts", id: 3 },
+      { label: "Eye Protection", id: 4 },
+      { label: "Headgear", id: 5 },
+      { label: "Pouches", id: 6 },
+      { label: "Footware", id: 7 },
+      { label: "Accessories", id: 8 },
+      { label: "Packs", id: 9 }
+    ],
+    onSelect, // optional: (item) => void
+    align = "left", // "left" | "right"
+  }
+) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
-
+  const navigate = useNavigate();
   const toggle = () => setOpen((v) => !v);
 
   // close on outside click
@@ -63,15 +72,18 @@ export default function CategoryDropdown({
           }}
         >
           {items.map((item) => (
-            <li key={item.href} role="none">
+            <li key={item.id} role="none">
               {/* swap <a> for <Link> if using react-router */}
               <a
                 role="menuitem"
-                href={item.href}
+                //href={item.id}
                 onClick={(e) => {
                   // if using SPA navigation, prevent full reload:
                   // e.preventDefault(); navigate(item.href);
-                  handleClick(item);
+                  getItemsByCategory(item.id).then((category) => {
+                    console.log(category);
+                    navigate("/view", { state: { products: category } });
+                  })
                 }}
               >
                 {item.label}

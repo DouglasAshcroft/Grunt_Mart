@@ -7,15 +7,15 @@ const backendDestination = `http://localhost:3000`
 
 
 
-export function saveObjToStorage(key,savedObj) {
-    localStorage.setItem(key, JSON.stringify(savedObj))
+export function saveObjToStorage(key, savedObj) {
+  localStorage.setItem(key, JSON.stringify(savedObj))
 }
 
 export function loadObjFromStorage(key) {
-    if (localStorage.getItem(key) == null) {
-        return false
-    } else
-        return JSON.parse(localStorage.getItem(key))
+  if (localStorage.getItem(key) == null) {
+    return false
+  } else
+    return JSON.parse(localStorage.getItem(key))
 }
 
 /**
@@ -24,7 +24,7 @@ export function loadObjFromStorage(key) {
  */
 
 export async function getAllItems() {
-    return fetch(`${backendDestination}/items/`).then((res) => res.json());
+  return fetch(`${backendDestination}/items/`).then((res) => res.json());
 }
 
 /**
@@ -32,7 +32,7 @@ export async function getAllItems() {
  * @returns {Promise<Array>} Promise that resolves into an array of categories
  */
 export async function getAllCategories() {
-    return fetch(backendDestination + `/category/`).then((res) => res.json());
+  return fetch(backendDestination + `/category/`).then((res) => res.json());
 }
 
 /**
@@ -40,7 +40,7 @@ export async function getAllCategories() {
  * @returns {Promise<Array>} Promise that resolves into an array of roles
  */
 export async function getAllRoles() {
-    return fetch(backendDestination + `/roles/`).then((res) => res.json());
+  return fetch(backendDestination + `/roles/`).then((res) => res.json());
 }
 
 /**
@@ -49,9 +49,9 @@ export async function getAllRoles() {
  * @returns {Promise<Array>} Promise that resolves into an array of matching users
  */
 export async function getUserById(userId) {
-    return fetch(backendDestination + `/user/${userId}/`).then((res) =>
-        res.json()
-    );
+  return fetch(backendDestination + `/user/${userId}/`).then((res) =>
+    res.json()
+  );
 }
 
 /**
@@ -60,9 +60,9 @@ export async function getUserById(userId) {
  * @returns {Promise<Array>} Promise that resolves into an array of matching items
  */
 export async function getItemById(itemId) {
-    return fetch(backendDestination + `/items/${itemId}/`).then((res) =>
-        res.json()
-    );
+  return fetch(backendDestination + `/items/${itemId}/`).then((res) =>
+    res.json()
+  );
 }
 
 /**
@@ -71,9 +71,9 @@ export async function getItemById(itemId) {
  * @returns {Promise<Array>} Promise that resolves into an array of matching categories
  */
 export async function getCategoryById(categoryId) {
-    return fetch(backendDestination + `/category/${categoryId}/`).then((res) =>
-        res.json()
-    );
+  return fetch(backendDestination + `/category/${categoryId}/`).then((res) =>
+    res.json()
+  );
 }
 
 /**
@@ -82,9 +82,9 @@ export async function getCategoryById(categoryId) {
  * @returns {Promise<Array>} Promise that resolves into an array of matching roles
  */
 export async function getRoleById(roleId) {
-    return fetch(backendDestination + `/role/${roleId}/`).then((res) =>
-        res.json()
-    );
+  return fetch(backendDestination + `/role/${roleId}/`).then((res) =>
+    res.json()
+  );
 }
 
 /**
@@ -93,9 +93,9 @@ export async function getRoleById(roleId) {
  * @returns {Promise<Array>} Promise that resolves into an array of orders for a userId
  */
 export async function getUserOrders(userId) {
-    return fetch(backendDestination + `/user/${userId}/orders/`).then((res) =>
-        res.json()
-    );
+  return fetch(backendDestination + `/user/${userId}/orders/`).then((res) =>
+    res.json()
+  );
 }
 
 /**
@@ -105,9 +105,9 @@ export async function getUserOrders(userId) {
  * @returns {Promise<Array>} Promise that resolves into an array of matching orders for a userId
  */
 export async function getUserOrdersById(userId, orderId) {
-    return fetch(backendDestination + `/user/${userId}/orders/${orderId}`).then(
-        (res) => res.json()
-    );
+  return fetch(backendDestination + `/user/${userId}/orders/${orderId}`).then(
+    (res) => res.json()
+  );
 }
 /**
  * @param {number} mftrId the unique manufacturer ID
@@ -116,6 +116,9 @@ export async function getMftrById(mftrId) {
   return fetch(backendDestination + `/mftr/${mftrId}/`).then((res) => res.json());
 }
 
+export async function getItemsByCategory(categoryId) {
+  return fetch(backendDestination + `/category/items/${categoryId}`).then((res) => res.json());
+}
 //Shopping Cart Functions
 
 /**
@@ -131,7 +134,7 @@ export async function getMftrById(mftrId) {
  * @property {string} picture - string url to picture reference
  * @property {number} quantity - current in stock quanitity
  * @property {string} nsn - National Stock Number in String format
- * 
+ *
  */
 
 /**
@@ -144,23 +147,23 @@ export async function getMftrById(mftrId) {
  */
 
 export function addItemToCart(addedItem, [cartState = [], setCartState], quantity = 1) {
-    /** @type {array}*/
-    let updatedCart = cartState.slice()
-    if (updatedCart.length > 0) {
-        let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
-        if (indexCheck > -1) {
-            updatedCart[indexCheck].qty += 1
-        } else {
-            updatedCart.push({ 'item': addedItem, 'qty': quantity })
-        }
+  /** @type {array}*/
+  let updatedCart = cartState.slice()
+  if (updatedCart.length > 0) {
+    let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
+    if (indexCheck > -1) {
+      updatedCart[indexCheck].qty += 1
     } else {
-        updatedCart.push({ 'item': addedItem, 'qty': quantity })
+      updatedCart.push({ 'item': addedItem, 'qty': quantity })
     }
+  } else {
+    updatedCart.push({ 'item': addedItem, 'qty': quantity })
+  }
 
 
-    setCartState(updatedCart)
-    console.log(cartState)
-    return true
+  setCartState(updatedCart)
+  console.log(cartState)
+  return true
 }
 
 
