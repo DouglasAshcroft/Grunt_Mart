@@ -28,7 +28,7 @@ exports.seed = async function (knex) {
       description: "Lightweight, minimalist SPC with AirLite material.",
       price: 279.99,
       picture:
-        "https://www.cryeprecision.com/site/crye/items/ALTEK5_100-02-MULTICAM-01.DEFAULT.png?resizeid=5&resizeh=687&resizew=687",
+        "https://www.tacticaldistributors.com/cdn/shop/files/spc1.png?v=1753981684&width=5000",
       quantity: 5,
       nsn: "8470016914577",
     },
@@ -68,7 +68,7 @@ exports.seed = async function (knex) {
         "Low-profile ballistic-rated shooting glasses, alternative to Oakley.",
       price: 110.0,
       picture:
-        "https://www.smithoptics.com/dw/image/v2/BDPZ_PRD/on/demandware.static/-/Sites-smith-master-catalog/default/dw5d407d6e/images/hi-res/202328DLD59VP_01.png?sw=700&sh=700&sm=fit",
+        "https://rx-safety.com/wp-content/uploads/2021/07/Smith-Optics-Longfin-Elite-Tan-499-Frame-Ignitor-Lenses-Angled-Side-Left-SO-202328DLD59VP.jpg",
       quantity: 15,
       nsn: "4240015274051",
     },
@@ -245,8 +245,7 @@ exports.seed = async function (knex) {
       description:
         "The Back Panel Banger is the upgraded evolution of Ferro's popular Assault Back Panel. Built with the same DNA but new tricks up its sleeve, it features three multi-fit expanding top pockets for storing your essentials, from mags to flashbangs (but sorry, FOG has to stay in the truck). The bottom general-purpose pocket handles mission basics like a med kit, snacks, or even a yo-yo if you’re bold like that.",
       price: 185.0,
-      picture:
-        "https://www.tacticaldistributors.com/cdn/shop/files/1575558738FERRO_20CONCEPTS_20-_20ADAPT_20BACK_20PANEL_20BANGER_20-_20FCPC_20V5_20-_20MULTICAM_480x480_46b9d219-468b-4c18-86b9-a830b78d2302.webp?v=1721049780&width=5000",
+      picture: "https://i.ebayimg.com/images/g/AaQAAOSwyK5l0YcQ/s-l1600.webp",
       quantity: 6,
       nsn: "11112234637455",
     },
