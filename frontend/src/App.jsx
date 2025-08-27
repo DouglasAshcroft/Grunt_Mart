@@ -6,6 +6,7 @@ import { SearchProvider } from "./context/SearchContext";
 import { CartContext } from "./context/CartContext.js";
 import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar";
+import About from "./components/About";
 import ShoppingCart from "./components/ShoppingCart.jsx";
 
 function App() {
