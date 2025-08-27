@@ -95,6 +95,12 @@ export async function getUserOrdersById(userId, orderId) {
     (res) => res.json()
   );
 }
+/**
+ * @param {number} mftrId the unique manufacturer ID
+ */
+export async function getMftrById(mftrId) {
+  return fetch(backendDestination + `/mftr/${mftrId}/`).then((res) => res.json());
+}
 
 // // utils.js
 
