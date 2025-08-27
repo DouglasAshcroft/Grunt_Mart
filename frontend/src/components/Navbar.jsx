@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./utils/ThemeToggle";
 import CategoryDropdown from "./CategoryDropdown";
@@ -12,13 +13,13 @@ import "../styles/Navbar.css";
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">Grunt Mart</div>
+      <div className="navbar-logo"><Link to={'/'}>Grunt Mart</Link></div>
 
       <CategoryDropdown
         label="Shop by Category"
         align="left"
-        // items={/* pass dynamic categories later */}
-        // onSelect={(item) => console.log('selected', item)}
+      // items={/* pass dynamic categories later */}
+      // onSelect={(item) => console.log('selected', item)}
       />
 
       <div className="navbar-right">
