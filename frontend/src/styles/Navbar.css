@@ -167,3 +167,19 @@
     width: min(92vw, 420px);
   }
 }
+
+.shopping-cart-btn {
+  background-color: #2e7d32; /* green to stand out */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 8px 14px;
+  margin-left: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.shopping-cart-btn:hover {
+  background-color: #1b5e20; /* darker green on hover */
+}

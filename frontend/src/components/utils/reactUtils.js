@@ -39,3 +39,27 @@ export function toTitleCase(str) {
     (text) => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
   );
 }
+
+export function formatCurrency(currencyChoice) {
+    let currencyHandler;
+    switch (currencyChoice) {
+        case 'USD':
+            currencyHandler = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
+            return currencyHandler;
+        case 'EUR':
+            currencyHandler = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" })
+            return currencyHandler
+        case 'GBP':
+            currencyHandler = new Intl.NumberFormat("en-UK", { style: "currency", currency: "GBP" })
+            return currencyHandler
+        case 'ISK':
+            currencyHandler = new Intl.NumberFormat("is-IS", { style: "currency", currency: "ISK" })
+            return currencyHandler
+        case 'UAH':
+            currencyHandler = new Intl.NumberFormat("ua-UA", { style: "currency", currency: "UAH" })
+            return currencyHandler
+        default:
+            currencyHandler = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" })
+            return currencyHandler;
+    }
+}

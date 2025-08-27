@@ -1,8 +1,22 @@
-const backendAddress = "localhost";
-const backendPort = 3000;
-const backendDestination = `http://${backendAddress}:${backendPort}`;
+
+//const backendAddress = localhost
+//const backendPort = 3000
+const backendDestination = `http://localhost:3000`
 //Ensure that these addresses and port are correctly set if something fails
 //console.log(backendDestination) //***Uncomment this line to debug endpoint issues
+
+
+
+export function saveObjToStorage(key, savedObj) {
+  localStorage.setItem(key, JSON.stringify(savedObj))
+}
+
+export function loadObjFromStorage(key) {
+  if (localStorage.getItem(key) == null) {
+    return false
+  } else
+    return JSON.parse(localStorage.getItem(key))
+}
 
 /**
  * UNTESTED Function that will fetch from the /items/ endpoint and get all products
@@ -95,6 +109,63 @@ export async function getUserOrdersById(userId, orderId) {
     (res) => res.json()
   );
 }
+/**
+ * @param {number} mftrId the unique manufacturer ID
+ */
+export async function getMftrById(mftrId) {
+  return fetch(backendDestination + `/mftr/${mftrId}/`).then((res) => res.json());
+}
+
+export async function getItemsByCategory(categoryId) {
+  return fetch(backendDestination + `/category/items/${categoryId}`).then((res) => res.json());
+}
+//Shopping Cart Functions
+
+/**
+ * @typedef rfiProduct
+ * @type {object}
+ * @property {number} product_id - Uniqued number ID of the product
+ * @property {string} product_name - string name of product
+ * @property {number} category - category id
+ * @property {number} mftr - manufacturer id
+ * @property {number} rating - current rating of product (#.#)
+ * @property {string} description - string description
+ * @property {number} price - price in USD
+ * @property {string} picture - string url to picture reference
+ * @property {number} quantity - current in stock quanitity
+ * @property {string} nsn - National Stock Number in String format
+ *
+ */
+
+/**
+ * UNTESTED Function that will add an Item to the cart
+ * @param {rfiProduct} addedItem Item object to be purchased
+ * @param {Array.rfiProduct} cartState Supplied cart via context, defaults to empty
+ * @param {function} setCartState Function to fire to change cartState
+ * @param {number} quantity Quanitity to add to cart, defaults to one
+ * @returns {boolean} True if cart was updated successfully, ALWAYS TRUE ATT
+ */
+
+export function addItemToCart(addedItem, [cartState = [], setCartState], quantity = 1) {
+  /** @type {array}*/
+  let updatedCart = cartState.slice()
+  if (updatedCart.length > 0) {
+    let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
+    if (indexCheck > -1) {
+      updatedCart[indexCheck].qty += 1
+    } else {
+      updatedCart.push({ 'item': addedItem, 'qty': quantity })
+    }
+  } else {
+    updatedCart.push({ 'item': addedItem, 'qty': quantity })
+  }
+
+
+  setCartState(updatedCart)
+  console.log(cartState)
+  return true
+}
+
 
 // // utils.js
 

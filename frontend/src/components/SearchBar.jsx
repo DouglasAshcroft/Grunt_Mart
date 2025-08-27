@@ -1,6 +1,7 @@
 // src/components/SearchBar.jsx
 import { useState, useContext, useEffect, useRef } from "react";
 import { SearchContext } from "../context/SearchContext";
+import { useNavigate } from "react-router-dom";
 
 function SearchBar() {
   const { results, search } = useContext(SearchContext);
@@ -8,6 +9,7 @@ function SearchBar() {
   const [isFocused, setIsFocused] = useState(false);
   const [open, setOpen] = useState(false);
   const wrapRef = useRef(null);
+  const navigate = useNavigate();
 
   // debounce search
   useEffect(() => {
@@ -31,7 +33,10 @@ function SearchBar() {
   }, []);
 
   // Allow clicks inside popup for navigation to product details
-  const stopOutsideClose = (e) => e.preventDefault();
+  const stopOutsideClose = (e) => {
+    if (e.target.closest(".search-row")) return;
+    e.preventDefault();
+  }
 
   return (
     <div className="search-wrap" ref={wrapRef}>
@@ -51,14 +56,14 @@ function SearchBar() {
           onMouseDown={stopOutsideClose}
         >
           {results.slice(0, 10).map((item) => (
-            <button key={item.id} className="search-row" type="button">
+            <div className="search-row" role="button" onClick={() => navigate(`/details/${item.id}`)}>
               <div className="search-row-title">{item.name}</div>
               <div className="search-row-meta">
                 {item.categoryName && `• ${item.categoryName}`}
                 {item.nsn && ` • NSN ${item.nsn}`}
                 {item.price != null && ` • $${item.price.toFixed(2)}`}
               </div>
-            </button>
+            </div>
           ))}
         </div>
       )}

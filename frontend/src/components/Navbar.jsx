@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import ThemeToggle from "./utils/ThemeToggle";
 import CategoryDropdown from "./CategoryDropdown";
@@ -12,7 +13,9 @@ import "../styles/Navbar.css";
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <div className="navbar-logo">Grunt Mart</div>
+      <div className="navbar-logo">
+        <Link to={"/"}>Grunt Mart</Link>
+      </div>
 
       <CategoryDropdown
         label="Shop by Category"
@@ -23,7 +26,11 @@ export default function Navbar() {
 
       <div className="navbar-right">
         <SearchBar />
+
         <ThemeToggle />
+        <Link to="/cart" className="shopping-cart-btn">
+          Shopping Cart
+        </Link>
       </div>
     </nav>
   );

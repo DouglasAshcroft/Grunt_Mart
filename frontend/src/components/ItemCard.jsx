@@ -1,7 +1,16 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/itemcard.css";
+
+import { addItemToCart } from "./utils/utils";
+import { CartContext } from "../context/CartContext";
+import { toTitleCase, formatCurrency } from "./utils/reactUtils";
+
+
 export default function ItemCard({ product }) {
+  const { shoppingCart, setShoppingCart } = useContext(CartContext);
+  const currencyHandler = formatCurrency(`USD`)
+
   if (!product) return null;
 
   const id = product.product_id;
@@ -11,7 +20,6 @@ export default function ItemCard({ product }) {
 
   return (
     <div className="item-card">
-      {/* Clickable image + title */}
       <Link to={`details/${id}`} className="item-link">
         <div className="card-media">
           {img ? (
@@ -35,6 +43,7 @@ export default function ItemCard({ product }) {
           Add to cart
         </button>
       </div>
+
     </div>
   );
 }
