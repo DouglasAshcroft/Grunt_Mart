@@ -1,45 +1,64 @@
-// // src/context/SearchContext.jsx
-// import { createContext, useState, useMemo, useContext } from "react";
-// import Fuse from "fuse.js";
-// // import { APIContext } from "../components/ApiFetch"; Create the DB fetch to search
+// src/context/SearchContext.jsx
+import { createContext, useState, useMemo, useEffect } from "react";
+import Fuse from "fuse.js";
+import { getAllItems } from "../components/utils/utils";
 
-// export const SearchContext = createContext();
+export const SearchContext = createContext();
 
-// export function SearchProvider({ children }) {
-//   const { products } = useContext(/*APIContext*/);
+export function SearchProvider({ children }) {
+  const [products, setProducts] = useState([]);
+  const [results, setResults] = useState([]);
 
-//   // Later: merge with venues & artists arrays
-//   const searchableData = useMemo(() => {
-//     return products.map((product) => ({
-//       id: "item",
-//       name: product.name,
-//       category: product.category?.name,
-//       role: product.role,
-//       // slug: event.venue ? event.venue.name : event.title,
-//     }));
-//   }, [products]);
+  useEffect(() => {
+    let APIrunning = true;
+    (async () => {
+      try {
+        const rows = await getAllItems(); // expects array
+        if (APIrunning) setProducts(rows || []);
+      } catch (e) {
+        console.error("SearchProvider: failed to load products", e);
+      }
+    })();
+    return () => {
+      APIrunning = false;
+    };
+  }, []);
 
-//   const fuse = useMemo(() => {
-//     return new Fuse(searchableData, {
-//       keys: ["name", "category", "role"],
-//       threshold: 0.3, // lower = stricter match
-//     });
-//   }, [searchableData]);
+  const searchableData = useMemo(() => {
+    return products.map((p) => ({
+      id: p.product_id,
+      name: p.product_name,
+      categoryId: p.category,
+      categoryName: String(p.category ?? ""),
+      role: "",
+      nsn: p.nsn ?? "",
+      price: p.price ? Number(p.price) : null,
+      imageUrl: p.picture ?? "",
+    }));
+  }, [products]);
 
-//   const [results, setResults] = useState([]);
+  const fuse = useMemo(() => {
+    return new Fuse(searchableData, {
+      includeScore: true,
+      threshold: 0.3, // lower = stricter match
+      keys: [
+        { name: "name", weight: 0.7 },
+        { name: "categoryName", weight: 0.2 },
+        { name: "nsn", weight: 0.1 },
+      ],
+    });
+  }, [searchableData]);
 
-//   const search = (query) => {
-//     if (!query.trim()) {
-//       setResults([]);
-//       return;
-//     }
-//     const matches = fuse.search(query).map((res) => res.item);
-//     setResults(matches);
-//   };
+  const search = (query) => {
+    const q = (query || "").trim();
+    if (!q) return setResults([]);
+    const matches = fuse.search(q).map((r) => r.item);
+    setResults(matches);
+  };
 
-//   return (
-//     <SearchContext.Provider value={{ results, search }}>
-//       {children}
-//     </SearchContext.Provider>
-//   );
-// }
+  return (
+    <SearchContext.Provider value={{ results, search }}>
+      {children}
+    </SearchContext.Provider>
+  );
+}

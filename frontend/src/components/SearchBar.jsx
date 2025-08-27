@@ -1,39 +1,53 @@
 // src/components/SearchBar.jsx
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect, useRef } from "react";
 import { SearchContext } from "../context/SearchContext";
 
 function SearchBar() {
   const { results, search } = useContext(SearchContext);
   const [query, setQuery] = useState("");
+  const [open, setOpen] = useState(false);
+  const wrapRef = useRef(null);
 
-  const handleChange = (e) => {
-    setQuery(e.target.value);
-    search(e.target.value);
-  };
+  // debounce search
+  useEffect(() => {
+    const t = setTimeout(() => {
+      search(query);
+      setOpen(Boolean(query.trim()));
+    }, 250);
+    return () => clearTimeout(t);
+  }, [query, search]);
+
+  // close search bar when user clicks outside
+  useEffect(() => {
+    function onDoc(e) {
+      if (!wrapRef.current?.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener("mousedown", onDoc);
+    return () => document.removeEventListener("mousedown", onDoc);
+  }, []);
 
   return (
-    <div className="search-wrapper">
+    <div className="search-wrap" ref={wrapRef}>
       <input
         className="search-input u-stencil-ring"
-        // className="search-input"
         type="search"
-        // type="text"
         value={query}
-        onChange={handleChange}
-        placeholder="Search by product or role"
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search by product or NSN"
+        onFocus={() => results.length && setOpen(true)}
       />
 
-      {results.length > 0 && (
-        <div className="search-results">
-          {results.map((item, idx) => (
-            <div key={idx} className="search-result">
-              {item.type === "event" && (
-                <>
-                  <strong>{item.title}</strong>
-                  <span> @ {item.venue}</span>
-                </>
-              )}
-            </div>
+      {open && results.length > 0 && (
+        <div className="search-popover">
+          {results.slice(0, 10).map((item) => (
+            <button key={item.id} className="search-row" type="button">
+              <div className="search-row-title">{item.name}</div>
+              <div className="search-row-meta">
+                {item.categoryName && `• ${item.categoryName}`}
+                {item.nsn && ` • NSN ${item.nsn}`}
+                {item.price != null && ` • $${item.price.toFixed(2)}`}
+              </div>
+            </button>
           ))}
         </div>
       )}
