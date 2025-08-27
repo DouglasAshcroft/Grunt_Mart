@@ -7,7 +7,7 @@ export default function Viewbox({ products: propProducts = [] }) {
 
   const products = stateProducts.length > 0 ? stateProducts : propProducts;
   return (
-    <section className="itemcard-row">
+    <section className="gm-grid">
       {products.map((product) =>
         product && product.product_id ? (
           <ItemCard key={product.product_id} product={product} />
