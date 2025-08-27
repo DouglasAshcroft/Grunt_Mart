@@ -21,7 +21,7 @@ export default function Home() {
       <Navbar />
       <Carousel data={slides} />
       <Viewbox />
-      <section className="itemcard-row">
+      <section className="gm-grid">
         {products.map((product) =>
           product && product.product_id ? (
             <ItemCard key={product.product_id} product={product} />
