@@ -118,6 +118,17 @@ app.get(`/mftr/:id`, (req, res) => {
     });
 })
 
+app.get(`/category/items/:id`, (req, res) => {
+  let categoryId = req.params.id;
+  knex('items')
+    .select('*')
+    .from('products')
+    .where({ category: categoryId })
+    .then(data => {
+      res.status(200).json(data);
+    })
+})
+
 //////////////////////NEED TESTING///////////////////////
 app.get('/role/:id', (req, res) => {
   let roleID = req.params.id;
