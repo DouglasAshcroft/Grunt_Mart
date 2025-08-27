@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
+import { useEffect } from "react";
 
 export default function shoppingCart() {
     const { shoppingCart, setShoppingCart } = useContext(CartContext);
@@ -15,7 +16,7 @@ export default function shoppingCart() {
         }
     }
 
-    cartElement = checkCart()
+    let cartElement = checkCart()
 
     return (
     <div className="cartContainer">

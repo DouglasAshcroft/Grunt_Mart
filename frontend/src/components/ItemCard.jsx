@@ -1,8 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import "../styles/itemcard.css";
+import { addItemToCart } from "./utils/utils";
+import { CartContext } from "../context/CartContext";
+
 
 export default function ItemCard({ product }) {
+  const { shoppingCart, setShoppingCart } = useContext(CartContext);
+
   if (!product) return null;
   return (
     <div className="item-card">
@@ -23,7 +28,7 @@ export default function ItemCard({ product }) {
 
       <span>
         <p>{product.price}</p>
-        <button>Add to cart</button>
+        <button onClick={()=>addItemToCart(product,[shoppingCart,setShoppingCart])}>Add to cart</button>
       </span>
     </div>
   );
