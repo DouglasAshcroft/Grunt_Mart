@@ -123,9 +123,10 @@ npm install
 
 Dependencies:
 npm install react-router-dom@latest
-npm install react-icons
+npm install react-icons --save
 npm install fuse.js <!-- Handles searchBar matching and fuzzy search results -->
-
+DEV:
+npm i -D vitest @testing-library/react
 ```
 
 <!-- # React + Vite

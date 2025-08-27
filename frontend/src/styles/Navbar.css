@@ -1,62 +1,169 @@
 /* Navbar.css */
 
+/* ========== NAV BAR ========== */
 .navbar {
   position: fixed;
-  top: 0;
-  left: 0;
+  inset: 0 auto auto 0;
   width: 100%;
-  height: 60px; /* Adjust as needed */
+  height: 60px;
   background-color: var(--nav-bg);
   color: var(--nav-text);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 0 1rem; /* tighter padding */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   z-index: 1000;
 }
 
 .navbar-logo {
-  font-size: 1.5rem;
-  font-weight: bold;
+  font-size: 1.25rem; /* slightly smaller to make room */
+  font-weight: 700;
 }
+
+/* Right side container: search + theme toggle */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between search and toggle */
+}
+
+/* Ensure the theme toggle isn’t glued to the search input */
+.navbar-right > * {
+  flex: 0 0 auto;
+}
+
+/* ========== CATEGORY DROPDOWN ========== */
 
 .dropdown {
   position: relative;
 }
 
 .dropdown-toggle {
-  background-color: var(--nav-bg);
+  background: var(--nav-bg);
   color: var(--nav-text);
-  padding: 0.5rem 1rem;
-  border: none;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid var(--dropdown-border, #3a3a3a);
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 1rem;
+  font-size: 0.95rem;
 }
-
 .dropdown-menu {
   position: absolute;
-  right: 0;
-  top: 100%;
-  margin-top: 0.5rem;
-  background-color: white;
-  color: black;
+  top: calc(100% + 6px);
+  left: 0; /* can be overridden to right:0 via inline style */
   list-style: none;
+  margin: 0;
   padding: 0;
-  border: 1px solid #ccc;
-  width: 200px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  width: 220px;
+  background: var(--dropdown-bg, #111);
+  color: var(--dropdown-text, #f2f2f2);
+  border: 1px solid var(--dropdown-border, #2a2a2a);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+  z-index: 1100;
 }
-
 .dropdown-menu li a {
   display: block;
   padding: 0.75rem 1rem;
   text-decoration: none;
-  background-color: var(--dropdown-bg);
-  color: var(--dropdown-text);
+  color: inherit;
+}
+.dropdown-menu li + li a {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+.dropdown-menu li a:hover {
+  background-color: var(--dropdown-hover, rgba(255, 255, 255, 0.08));
 }
 
-.dropdown-menu li a:hover {
-  background-color: var(--dropdown-hover);
+/* ========== SEARCH ========== */
+.search-wrap {
+  position: relative; /* anchor for popover */
+  width: clamp(260px, 34vw, 420px); /* sensible width */
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.55rem 0.8rem;
+  font-size: 1rem; /* readable text */
+  border: 1px solid var(--dropdown-border, #2a2a2a);
+  border-radius: 8px;
+  background: var(--nav-input-bg, #0e0e0e);
+  color: var(--nav-text, #f2f2f2);
+}
+.search-input::placeholder {
+  opacity: 0.7;
+}
+
+.search-popover {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 1200; /* above dropdown */
+  max-height: 60vh;
+  overflow: auto;
+  background: var(--dropdown-bg, #111);
+  color: var(--dropdown-text, #f2f2f2);
+  border: 1px solid var(--dropdown-border, #2a2a2a);
+  border-radius: 10px;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+}
+
+.search-row {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.6rem 0.8rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.search-row:hover,
+.search-row:focus {
+  background: rgba(255, 255, 255, 0.06);
+  outline: none;
+}
+.search-row + .search-row {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.search-row-title {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.search-row-meta {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-top: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ========== MOBILE TWEAKS ========== */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 0.75rem;
+    height: 56px;
+  }
+
+  .navbar-logo {
+    font-size: 1.1rem;
+  }
+  .dropdown-toggle {
+    font-size: 0.9rem;
+    padding: 0.45rem 0.7rem;
+  }
+
+  .search-wrap {
+    width: min(92vw, 420px);
+  }
+  .search-popover {
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: min(92vw, 420px);
+  }
 }

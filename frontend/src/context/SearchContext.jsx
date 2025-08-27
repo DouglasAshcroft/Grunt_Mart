@@ -1,39 +1,61 @@
 // src/context/SearchContext.jsx
-import { createContext, useState, useMemo, useContext } from "react";
+
+import { createContext, useState, useMemo, useEffect } from "react";
 import Fuse from "fuse.js";
-// import { APIContext } from "../components/ApiFetch"; Create the DB fetch to search
+import { getAllItems } from "../components/utils/utils";
+
 
 export const SearchContext = createContext();
 
 export function SearchProvider({ children }) {
-  const { products } = useContext(/*APIContext*/);
 
-  // Later: merge with venues & artists arrays
+  const [products, setProducts] = useState([]);
+  const [results, setResults] = useState([]);
+
+  useEffect(() => {
+    let APIrunning = true;
+    (async () => {
+      try {
+        const rows = await getAllItems(); // expects array
+        if (APIrunning) setProducts(rows || []);
+      } catch (e) {
+        console.error("SearchProvider: failed to load products", e);
+      }
+    })();
+    return () => {
+      APIrunning = false;
+    };
+  }, []);
+
   const searchableData = useMemo(() => {
-    return products.map((product) => ({
-      id: "item",
-      name: product.name,
-      category: product.category?.name,
-      role: product.role,
-      // slug: event.venue ? event.venue.name : event.title,
+    return products.map((p) => ({
+      id: p.product_id,
+      name: p.product_name,
+      categoryId: p.category,
+      categoryName: String(p.category ?? ""),
+      role: "",
+      nsn: p.nsn ?? "",
+      price: p.price ? Number(p.price) : null,
+      imageUrl: p.picture ?? "",
     }));
   }, [products]);
 
   const fuse = useMemo(() => {
     return new Fuse(searchableData, {
-      keys: ["name", "category", "role"],
+      includeScore: true,
       threshold: 0.3, // lower = stricter match
+      keys: [
+        { name: "name", weight: 0.7 },
+        { name: "categoryName", weight: 0.2 },
+        { name: "nsn", weight: 0.1 },
+      ],
     });
   }, [searchableData]);
 
-  const [results, setResults] = useState([]);
-
   const search = (query) => {
-    if (!query.trim()) {
-      setResults([]);
-      return;
-    }
-    const matches = fuse.search(query).map((res) => res.item);
+    const q = (query || "").trim();
+    if (!q) return setResults([]);
+    const matches = fuse.search(q).map((r) => r.item);
     setResults(matches);
   };
 
