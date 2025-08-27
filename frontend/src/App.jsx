@@ -4,6 +4,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { useState, useEffect, useContext } from "react";
 import { SearchProvider } from "./context/SearchContext";
 import { CartContext } from "./context/CartContext.js";
+import ItemView from "./pages/ItemView.jsx";
 import Home from "./pages/Home.jsx";
 import Navbar from "./components/Navbar";
 import About from "./components/About";
@@ -39,6 +40,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<ShoppingCart />} />
+            <Route path="/details/:productId" element={<ItemView />} />
             {/* <Route path="/view" element={<Viewbox />} /> */}
           </Routes>
           <About />
