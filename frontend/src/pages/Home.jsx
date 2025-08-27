@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+
 import Viewbox from "../components/Viewbox";
 import Carousel from "../components/Carousel";
-import About from "../components/About";
 import { slides } from "../data/carouselData";
 import ItemCard from "../components/ItemCard";
 
@@ -18,17 +17,8 @@ export default function Home() {
 
   return (
     <main>
-      <Navbar />
       <Carousel data={slides} />
-      <Viewbox />
-      <section className="itemcard-row">
-        {products.map((product) =>
-          product && product.product_id ? (
-            <ItemCard key={product.product_id} product={product} />
-          ) : null
-        )}
-      </section>
-      <About />
+      <Viewbox products={products} />
     </main>
   );
 }

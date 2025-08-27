@@ -14,7 +14,7 @@ const Carousel = ({ data }) => {
     setSlide(slide === 0 ? data.length : slide - 1);
   };
 
-  console.log(data);
+  //console.log(data);
   return (
     <div className="carousel">
       <BsArrowLeftCircleFill className="arrow arrow-left" onClick={prevSlide} />
