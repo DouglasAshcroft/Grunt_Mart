@@ -5,6 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { SearchProvider } from "./context/SearchContext";
 import { CartContext } from "./context/CartContext.js";
 import Home from "./pages/Home.jsx";
+import ShoppingCart from "./components/ShoppingCart.jsx";
 
 function App() {
   const [shoppingCart, setShoppingCart] = useState([]);

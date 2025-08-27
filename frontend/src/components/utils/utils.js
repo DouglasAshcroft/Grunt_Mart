@@ -1,6 +1,7 @@
-const backendAddress = "localhost";
-const backendPort = 3000;
-const backendDestination = `http://${backendAddress}:${backendPort}`;
+
+//const backendAddress = localhost
+//const backendPort = 3000
+const backendDestination = `http://localhost:3000`
 //Ensure that these addresses and port are correctly set if something fails
 //console.log(backendDestination) //***Uncomment this line to debug endpoint issues
 
