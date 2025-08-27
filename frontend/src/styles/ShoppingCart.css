@@ -13,11 +13,11 @@ img.cartLineItemThumb {
 
 .cartLineItem {
     display: flex;
-    grid-template-columns: 25% 45% 10% 10% 10%;
     border: 1px,solid,beige;
     align-items: center;
     padding: 20px;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 ol.cartList {
@@ -26,4 +26,17 @@ ol.cartList {
     padding: 10px;
 }
 
+footer.cartBottom {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+}
 
+footer.cartBottom>* {
+    margin-inline: 20px;
+    margin-top: 20px;
+}
+
+li.cartLineItem>* {
+    margin-block: 10px;
+}
