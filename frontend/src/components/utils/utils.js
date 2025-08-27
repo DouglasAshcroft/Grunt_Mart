@@ -194,15 +194,15 @@ export function addItemToCart(addedItem, [cartState = [], setCartState], quantit
 export function addItemToCart(addedItem, [cartState = [], setCartState], quantity = 1) {
     /** @type {array}*/
     let updatedCart = cartState.slice()
-    if (updatedCart.length() > 0) {
+    if (updatedCart.length > 0) {
         let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
         if (indexCheck > -1) {
             updatedCart[indexCheck].qty += 1
         } else {
-            updatedCart.push({ 'item': item, 'qty': quantity })
+            updatedCart.push({ 'item': addedItem, 'qty': quantity })
         }
     } else {
-        updatedCart.push({ 'item': item, 'qty': quantity })
+        updatedCart.push({ 'item': addedItem, 'qty': quantity })
     }
 
 
