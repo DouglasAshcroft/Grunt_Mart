@@ -191,15 +191,21 @@ export function addItemToCart(addedItem, [cartState = [], setCartState], quantit
  * @returns {boolean} True if cart was updated successfully, ALWAYS TRUE ATT
  */
 
-export function addItemToCart(addedItem, [cartState=[],setCartState],quantity=1){
+export function addItemToCart(addedItem, [cartState = [], setCartState], quantity = 1) {
+    /** @type {array}*/
     let updatedCart = cartState.slice()
-    let indexCheck = updatedCart.findIndex(element=>element.item.product_id==addedItem.product_id)
-    if(indexCheck>-1){
-        updatedCart[indexCheck].qty+=1
+    if (updatedCart.length() > 0) {
+        let indexCheck = updatedCart.findIndex(element => element.item.product_id == addedItem.product_id)
+        if (indexCheck > -1) {
+            updatedCart[indexCheck].qty += 1
+        } else {
+            updatedCart.push({ 'item': item, 'qty': quantity })
+        }
     } else {
-updatedCart.push({'item':item,'qty':quantity})
+        updatedCart.push({ 'item': item, 'qty': quantity })
     }
-    
+
+
     setCartState(updatedCart)
     console.log(cartState)
     return true
