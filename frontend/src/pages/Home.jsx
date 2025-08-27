@@ -20,14 +20,7 @@ export default function Home() {
     <main>
       <Navbar />
       <Carousel data={slides} />
-      <Viewbox />
-      <section className="itemcard-row">
-        {products.map((product) =>
-          product && product.product_id ? (
-            <ItemCard key={product.product_id} product={product} />
-          ) : null
-        )}
-      </section>
+      <Viewbox products={products} />
       <About />
     </main>
   );
