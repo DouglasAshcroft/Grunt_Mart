@@ -1,15 +1,13 @@
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
-import "../styles/itemcard.css";
-
 import { addItemToCart } from "./utils/utils";
 import { CartContext } from "../context/CartContext";
 import { toTitleCase, formatCurrency } from "./utils/reactUtils";
-
+import "../styles/itemcard.css";
 
 export default function ItemCard({ product }) {
   const { shoppingCart, setShoppingCart } = useContext(CartContext);
-  const currencyHandler = formatCurrency(`USD`)
+  const currencyHandler = formatCurrency(`USD`);
 
   if (!product) return null;
 
@@ -28,22 +26,26 @@ export default function ItemCard({ product }) {
             <div className="card-media__placeholder">No image</div>
           )}
         </div>
-        <h2 className="card-title">{name}</h2>
+        <h2 className="card-title">{toTitleCase(name)}</h2>
       </Link>
 
-      {/* Price + button (not part of the link) */}
       <div className="card-meta">
-        {price && (
-          <span className="card-price">${Number(price).toFixed(2)}</span>
-        )}
+        <span className="card-price">
+          <p>{currencyHandler.format(price)}</p>
+        </span>
       </div>
 
       <div className="card-actions">
-        <button className="btn" type="button">
-          Add to cart
+        <button
+          className="btn"
+          type="button"
+          onClick={() =>
+            addItemToCart(product, [shoppingCart, setShoppingCart])
+          }
+        >
+          Add to Cart
         </button>
       </div>
-
     </div>
   );
 }

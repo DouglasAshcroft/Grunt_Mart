@@ -13,7 +13,7 @@
 
   --nav-bg: #fff;
   --nav-text: #111;
-
+  --nav-h: 60px;
   --dropdown-bg: #fff;
   --dropdown-text: #111;
   --dropdown-border: #dcdfe4;
@@ -53,6 +53,10 @@
   --link: #8ab4ff;
 }
 
+:target {
+  scroll-margin-top: calc(var(--nav-h) + env(safe-area-inset-top));
+}
+
 /* 2) Foundation: ensure overflow areas use --bg-color */
 html,
 body,
@@ -66,6 +70,7 @@ body {
 }
 body {
   margin: 0;
+  padding-top: calc(var(--nav-h) + env(safe-area-inset-top));
   color: var(--text-color);
   transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
