@@ -45,11 +45,12 @@ export default function ItemView() {
     <>
       <h2>{product[0].product_name}</h2>
       <div className="item_image">
-        {product[0].picture}
+        <img src={product[0].picture}></img>
       </div>
 
       <div>
-        <span>{product[0].description}</span>
+        <br />
+        <span>{product[0].description}</span><br />
         <span>${product[0].price}</span>
       </div>
       <div>
