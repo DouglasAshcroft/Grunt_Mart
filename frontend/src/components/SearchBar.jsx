@@ -25,18 +25,37 @@ function SearchBar() {
   // close search bar when user clicks outside
   useEffect(() => {
     function onDoc(e) {
-      if (!wrapRef.current?.contains(e.target)) setIsFocused(false);
-      setOpen(false);
+      if (!wrapRef.current?.contains(e.target)) {
+        setIsFocused(false);
+        setOpen(false);
+      }
     }
     document.addEventListener("pointerdown", onDoc);
     return () => document.removeEventListener("pointerdown", onDoc);
   }, []);
 
+  const handleSelect = (p) => {
+    const id = p.product_id ?? p.id;
+    if (!id) return;
+    setOpen(false);
+    setIsFocused(false);
+    setQuery("");
+    navigate(`/details/${id}`);
+  };
+
   // Allow clicks inside popup for navigation to product details
   const stopOutsideClose = (e) => {
-    if (e.target.closest(".search-row")) return;
-    e.preventDefault();
-  }
+    if (!e.target.closest(".search-row")) e.preventDefault();
+  };
+
+  const norm = (r) => ({
+    id: r?.product_id ?? r?.id,
+    name: r?.product_name ?? r?.name ?? "Unnamed",
+    price: r?.price,
+    nsn: r?.nsn ?? r?.NSN ?? null,
+    categoryName:
+      r?.categoryName ?? r?.category_name ?? r?.category?.name ?? null,
+  });
 
   return (
     <div className="search-wrap" ref={wrapRef}>
@@ -47,6 +66,8 @@ function SearchBar() {
         onChange={(e) => setQuery(e.target.value)}
         placeholder="Search by product or NSN"
         onFocus={() => setIsFocused(true)}
+        role="combobox"
+        aria-expanded={open}
       />
 
       {open && (
@@ -55,16 +76,28 @@ function SearchBar() {
           role="listbox"
           onMouseDown={stopOutsideClose}
         >
-          {results.slice(0, 10).map((item) => (
-            <div className="search-row" role="button" onClick={() => navigate(`/details/${item.id}`)}>
-              <div className="search-row-title">{item.name}</div>
-              <div className="search-row-meta">
-                {item.categoryName && `• ${item.categoryName}`}
-                {item.nsn && ` • NSN ${item.nsn}`}
-                {item.price != null && ` • $${item.price.toFixed(2)}`}
+          {results.slice(0, 10).map((raw, idx) => {
+            const p = norm(raw);
+            return (
+              <div
+                key={p.id ?? idx} // ← safe key
+                className="search-row"
+                role="option"
+                tabIndex={0}
+                onMouseDown={(e) => {
+                  e.preventDefault(); // fire before blur/unmount
+                  handleSelect(p);
+                }}
+              >
+                <div className="search-row-title">{p.name}</div>
+                <div className="search-row-meta">
+                  {p.categoryName && `• ${p.categoryName}`}
+                  {p.nsn && ` • NSN ${p.nsn}`}
+                  {p.price != null && ` • $${p.price.toFixed(2)}`}
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>

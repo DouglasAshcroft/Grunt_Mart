@@ -29,7 +29,6 @@ function App() {
 
   useEffect(() => {
     if (shoppingCart.length > 0) {
-
       saveObjToStorage("browserShoppingCart", shoppingCart);
     }
   }, [shoppingCart]);
@@ -44,7 +43,6 @@ function App() {
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/details/:productId" element={<ItemView />} />
             <Route path="/view" element={<Viewbox />} />
-            {/* <Route path="/view" element={<Viewbox />} /> */}
           </Routes>
           <About />
         </SearchProvider>
