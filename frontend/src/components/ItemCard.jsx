@@ -1,4 +1,5 @@
-import { useContext } from "react";
+// src/components/ItemCard.jsx
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { addItemToCart } from "./utils/utils";
 import { CartContext } from "../context/CartContext";
@@ -7,14 +8,21 @@ import "../styles/itemcard.css";
 
 export default function ItemCard({ product }) {
   const { shoppingCart, setShoppingCart } = useContext(CartContext);
-  const currencyHandler = formatCurrency(`USD`);
+  const currencyHandler = formatCurrency("USD");
+  const [added, setAdded] = useState(false); // <-- track clicked state
 
   if (!product) return null;
 
   const id = product.product_id;
   const name = product.product_name ?? product.name ?? "Unnamed";
   const img = product.picture ?? "";
-  const price = product.price;
+  const price = product.price ?? 0;
+
+  const handleAdd = () => {
+    addItemToCart(product, [shoppingCart, setShoppingCart]);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 3500);
+  };
 
   return (
     <div className="item-card item-card--holo">
@@ -37,13 +45,12 @@ export default function ItemCard({ product }) {
 
       <div className="card-actions">
         <button
-          className="btn"
+          className={`btn ${added ? "btn--added" : ""}`}
           type="button"
-          onClick={() =>
-            addItemToCart(product, [shoppingCart, setShoppingCart])
-          }
+          onClick={handleAdd}
+          aria-live="polite"
         >
-          Add to Cart
+          {added ? "Added to Cart!" : "Add to Cart"}
         </button>
       </div>
     </div>
