@@ -1,7 +1,12 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext.js";
-import { getItemById, getCategoryById, getMftrById } from "../components/utils/utils.js"
+import {
+  getItemById,
+  getCategoryById,
+  getMftrById,
+} from "../components/utils/utils.js";
+import "../styles/ItemDetails.css";
 
 export default function ItemView() {
   let { productId } = useParams();
@@ -18,16 +23,14 @@ export default function ItemView() {
       item = await getItemById(productId);
       //console.log(item);
       setProduct(item);
-
-    }
+    };
 
     getDetails();
-
-  }, [productId])
+  }, [productId]);
 
   useEffect(() => {
     if (!product || !product[0].product_id) return;
-    console.log(product)
+    console.log(product);
     const setDetails = async () => {
       const mftrData = await getMftrById(product[0].mftr);
       const categoryData = await getCategoryById(product[0].category);
@@ -35,7 +38,6 @@ export default function ItemView() {
       setCategory(categoryData);
     };
     setDetails();
-
   }, [product]);
 
   // const [item, setItem] = useState(item)
@@ -44,13 +46,14 @@ export default function ItemView() {
   return (
     <>
       <h2>{product[0].product_name}</h2>
-      <div className="item_image">
-        <img src={product[0].picture}></img>
+      <div className="item_detail_card">
+        <img className="item_image" src={product[0].picture}></img>
       </div>
 
       <div>
         <br />
-        <span>{product[0].description}</span><br />
+        <span>{product[0].description}</span>
+        <br />
         <span>${product[0].price}</span>
       </div>
       <div>
@@ -61,7 +64,7 @@ export default function ItemView() {
         </ul>
       </div>
 
-      <button onClick={() => (setShoppingCart({ product }))}>Add to Cart</button>
+      <button onClick={() => setShoppingCart({ product })}>Add to Cart</button>
     </>
-  )
+  );
 }
