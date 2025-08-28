@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import { CartContext } from "../context/CartContext";
 import { useEffect } from "react";
-import { loadObjFromStorage, saveObjToStorage } from "./utils/utils";
+import { loadObjFromStorage, saveObjToStorage,removeItemFromCart } from "./utils/utils";
 import { toTitleCase, formatCurrency } from "./utils/reactUtils";
 import { Link, useNavigate } from "react-router-dom";
 import "../styles/ShoppingCart.css";
@@ -56,6 +56,7 @@ export default function shoppingCart() {
                         <span>Unit Price: {currencyHandler.format(product.price)}</span>
                         <span>Quantity: {cartItem['qty']}</span>
                         <span>Subtotal: {currencyHandler.format(cartItem['qty'] * product.price)}</span>
+                        <button className="removeItemButton" onClick={()=>removeItemFromCart(product, [shoppingCart, setShoppingCart])}>Remove</button>
                     </li>
                 )
 

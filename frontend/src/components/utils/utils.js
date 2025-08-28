@@ -167,6 +167,32 @@ export function addItemToCart(addedItem, [cartState = [], setCartState], quantit
 }
 
 
+/**
+ * UNTESTED Function that will add an Item to the cart
+ * @param {rfiProduct} removedItem Item object to be purchased
+ * @param {Array.rfiProduct} cartState Supplied cart via context, defaults to empty
+ * @param {function} setCartState Function to fire to change cartState
+ * @param {number} quantity Quanitity to add to cart, defaults to one
+ * @returns {boolean} True if cart was updated successfully, ALWAYS TRUE ATT
+ */
+
+export function removeItemFromCart(removedItem, [cartState = [], setCartState]) {
+  /** @type {array}*/
+  let updatedCart = cartState.slice()
+  if (updatedCart.length > 0) {
+    let indexCheck = updatedCart.findIndex(element => element.item.product_id == removedItem.product_id)
+    if (indexCheck > -1) {
+      updatedCart.splice(indexCheck,1)
+    }
+  }
+
+
+  setCartState(updatedCart)
+  console.log(cartState)
+  return true
+}
+
+
 // // utils.js
 
 // // ✅ Central base URL (use VITE_API_URL if set, fallback to localhost:3000)
