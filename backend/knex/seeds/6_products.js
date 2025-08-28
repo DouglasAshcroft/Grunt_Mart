@@ -101,7 +101,7 @@ exports.seed = async function (knex) {
     },
 
     {
-      product_name: "glock mga pouch",
+      product_name: "glock mag pouch",
       category: 6,
       mftr: 8,
       rating: 4.9,
@@ -109,7 +109,7 @@ exports.seed = async function (knex) {
         "Hybrid Kydex/nylon magazine pouch (KYWI = Kydex Wedge Insert) that provides adjustable retention by heating and shaping the insert. Designed for double-stack 9mm/.40/.45 pistol mags.",
       price: 139.99,
       picture:
-        "https://cdn11.bigcommerce.com/s-4z9lxo7ou8/images/stencil/50x50/products/346/743/Single_Pistol_Magnet_A__81149.1623448293.jpg?c=1",
+        "https://d2j6dbq0eux0bg.cloudfront.net/images/21885086/2446127024.jpg",
       quantity: 12,
       nsn: "1234233454567",
     },
