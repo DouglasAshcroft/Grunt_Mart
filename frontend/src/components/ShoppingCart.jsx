@@ -28,7 +28,7 @@ export default function shoppingCart() {
                 /** @type {import("./utils/utils").rfiProduct} */
                 let product = cartItem['item']
                 return (
-                    <li className="cartLineItem">
+                    <li key={index} className="cartLineItem">
 
                         {product.picture ? (
                             <img

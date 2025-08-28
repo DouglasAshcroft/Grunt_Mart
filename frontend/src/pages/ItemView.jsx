@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 import { CartContext } from "../context/CartContext.js";
 import { getItemById, getCategoryById, getMftrById } from "../components/utils/utils.js"
+import { toTitleCase } from "../components/utils/reactUtils.js";
 
 export default function ItemView() {
   let { productId } = useParams();
@@ -43,7 +44,7 @@ export default function ItemView() {
 
   return (
     <>
-      <h2>{product[0].product_name}</h2>
+      <h2>{toTitleCase(product[0].product_name)}</h2>
       <div className="item_image">
         <img src={product[0].picture}></img>
       </div>
@@ -55,8 +56,8 @@ export default function ItemView() {
       </div>
       <div>
         <ul>
-          <li>Manufacturer: {mftr[0].mftr_name}</li>
-          <li>Category: {category[0].category_name}</li>
+          <li>Manufacturer: {toTitleCase(mftr[0].mftr_name)}</li>
+          <li>Category: {toTitleCase(category[0].category_name)}</li>
           <li>NSN: {product[0].nsn}</li>
         </ul>
       </div>
