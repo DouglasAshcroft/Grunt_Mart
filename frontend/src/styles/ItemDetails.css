@@ -1,0 +1,17 @@
+.item_image {
+  max-width: 600px;
+  max-height: 600px;
+  min-width: 200px;
+  min-height: 200px;
+}
+
+.item_detail_card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 80%;
+  border: 2px, solid, white;
+  padding: 10px;
+}
