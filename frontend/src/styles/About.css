@@ -1,0 +1,8 @@
+.about-section {
+  background-color: #333232; /* Light gray background */
+  padding: 20px 20px; /* Top/bottom padding and left/right padding */
+  margin: 0 auto; /* Center the section horizontally */
+  text-align: left; /* Center the text */
+  font-family: Arial, sans-serif;
+  color: #989797;
+}
