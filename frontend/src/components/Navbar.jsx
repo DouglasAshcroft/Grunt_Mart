@@ -14,7 +14,13 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="navbar-logo">
-        <Link to={"/"}>Grunt Mart</Link>
+        <Link to={"/"}>
+          <img
+            className="logo-image"
+            src="https://i.postimg.cc/wvWyW88S/image.png"
+            alt="logo"
+          />
+        </Link>
       </div>
 
       <CategoryDropdown

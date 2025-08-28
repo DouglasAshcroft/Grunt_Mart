@@ -5,7 +5,7 @@
   position: fixed;
   inset: 0 auto auto 0;
   width: 100%;
-  height: 60px;
+  height: 120px;
   background-color: var(--nav-bg);
   color: var(--nav-text);
   display: flex;
@@ -19,6 +19,11 @@
 .navbar-logo {
   font-size: 1.25rem; /* slightly smaller to make room */
   font-weight: 700;
+}
+
+.logo-image {
+  height: 100px;
+  width: 100px;
 }
 
 /* Right side container: search + theme toggle */
