@@ -17,7 +17,7 @@ export default function ItemCard({ product }) {
   const price = product.price;
 
   return (
-    <div className="item-card">
+    <div className="item-card item-card--holo">
       <Link to={`details/${id}`} className="item-link">
         <div className="card-media">
           {img ? (

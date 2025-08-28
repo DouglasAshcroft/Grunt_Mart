@@ -11,9 +11,64 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
   transition: transform 0.12s, box-shadow 0.12s, border-color 0.12s;
 }
-.item-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+/* HOLOGRAPHIC CARD — SCOPED */
+.item-card--holo {
+  position: relative;
+  overflow: hidden; /* keep sweep inside rounded corners */
+  isolation: isolate; /* prevent blending with neighbors */
+  transition: transform 180ms ease, box-shadow 180ms ease,
+    border-color 180ms ease;
+}
+
+/* put content above the sweep */
+.item-card--holo * {
+  position: relative;
+  z-index: 1;
+}
+
+/* the sweep layer */
+.item-card--holo::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -60%;
+  width: 220%;
+  height: 220%;
+  background: linear-gradient(
+    0deg,
+    transparent 0 32%,
+    rgba(124, 62, 168, 0.35) 32% 58%,
+    transparent 58% 100%
+  );
+  transform: rotate(-45deg) translateY(-20%);
+  opacity: 0;
+  transition: opacity 360ms ease, transform 700ms ease;
+  pointer-events: none; /* don't block clicks on links/buttons */
+  z-index: 0;
+}
+
+/* hover effect on the whole card */
+.item-card--holo:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 0 26px rgba(124, 62, 168, 0.35);
+  border-color: rgba(124, 62, 168, 0.35);
+}
+
+.item-card--holo:hover::before {
+  opacity: 1;
+  transform: rotate(-45deg) translateY(95%);
+}
+
+/* prefers-reduced-motion: be polite */
+@media (prefers-reduced-motion: reduce) {
+  .item-card--holo,
+  .item-card--holo::before {
+    transition: none;
+  }
+  .item-card--holo:hover::before {
+    opacity: 0;
+    transform: none;
+  }
 }
 
 /* MAKE THE LINK FILL THE CARD TOP */
