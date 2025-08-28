@@ -43,6 +43,7 @@ function App() {
             <Route path="/cart" element={<ShoppingCart />} />
             <Route path="/details/:productId" element={<ItemView />} />
             <Route path="/view" element={<Viewbox />} />
+            <Route path="/view/details/:productId" element={<ItemView />} />
           </Routes>
           <About />
         </SearchProvider>
