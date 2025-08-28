@@ -169,7 +169,7 @@
 }
 
 .shopping-cart-btn {
-  background-color: #2e7d32; /* green to stand out */
+  background-color: #3b39a8;
   color: white;
   border: none;
   border-radius: 4px;
@@ -181,5 +181,5 @@
 }
 
 .shopping-cart-btn:hover {
-  background-color: #1b5e20; /* darker green on hover */
+  background-color: #6c38be;
 }
