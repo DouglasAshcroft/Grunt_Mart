@@ -8,6 +8,7 @@ import {
 } from "../components/utils/utils.js";
 import { toTitleCase } from "../components/utils/reactUtils.js";
 import "../styles/ItemDetails.css";
+import { addItemToCart } from "../components/utils/utils";
 
 export default function ItemView() {
   let { productId } = useParams();
@@ -16,6 +17,15 @@ export default function ItemView() {
   let [mftr, setMftr] = useState(null);
   let [category, setCategory] = useState(null);
   const { shoppingCart, setShoppingCart } = useContext(CartContext);
+    const [added, setAdded] = useState(false); // <-- track clicked state
+
+  
+
+  const handleAdd = () => {
+      addItemToCart(product[0], [shoppingCart, setShoppingCart]);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 3500);
+    };
 
   useEffect(() => {
     console.log(productId);
@@ -65,7 +75,14 @@ export default function ItemView() {
         </ul>
       </div>
 
-      <button onClick={() => setShoppingCart({ product })}>Add to Cart</button>
+      <button
+          className={`btn ${added ? "btn--added" : ""}`}
+          type="button"
+          onClick={handleAdd}
+          aria-live="polite"
+        >
+          {added ? "Added to Cart!" : "Add to Cart"}
+        </button>
     </>
   );
 }
